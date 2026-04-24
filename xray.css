@@ -1,0 +1,79 @@
+/* X-Ray Split Layout Framework */
+:root {
+  --xray-bg: #0f172a;
+  --xray-border: #334155;
+  --xray-code-bg: #1e293b;
+  --xray-text: #f8fafc;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--xray-bg);
+  color: var(--xray-text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.xray-header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--xray-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--xray-bg);
+  z-index: 10;
+}
+
+.xray-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.xray-header .back-link {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.split-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.code-panel {
+  flex: 1;
+  background-color: var(--xray-code-bg);
+  border-right: 1px solid var(--xray-border);
+  overflow-y: auto;
+  padding: 2rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.code-panel pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.preview-panel {
+  flex: 1;
+  background-color: white; /* Default browser background for previews */
+  color: black;            /* Default browser text color */
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Syntax Highlighting Tokens */
+.token.tag { color: #569cd6; }
+.token.attr { color: #9cdcfe; }
+.token.string { color: #ce9178; }
+.token.comment { color: #6a9955; font-style: italic; }
+.token.keyword { color: #c586c0; }
+.token.function { color: #dcdcaa; }
+.token.highlight { background-color: rgba(255, 255, 0, 0.2); border-radius: 4px; }

@@ -4,29 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stage 3: JavaScript</title>
+  <link rel="stylesheet" href="../xray.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
+  <header class="xray-header">
     <a href="../" class="back-link">← Back to Home</a>
-  </nav>
-
-  <header>
-    <h1>Stage 3: JavaScript Added</h1>
-    <p class="description">JavaScript adds behavior and logic. It makes the static page interactive.</p>
-    <button id="disable-js-btn" class="toggle-btn">
-      Disable JavaScript behavior
+    <h1 style="color: #f7df1e;">Stage 3: JavaScript Added</h1>
+    <button id="disable-js-btn" class="toggle-btn" style="padding: 0.5rem 1rem; border-radius: 0.5rem; background: transparent; color: white; border: 1px solid #334155; cursor: pointer;">
+      Disable JS
     </button>
   </header>
 
-  <main>
-    <div class="card">
-      <h2 class="card-title">Frontend Development</h2>
-      <p class="card-text">Building the user interface of the web.</p>
-      <button id="action-btn" class="card-btn">Learn More</button>
-      <p id="counter-text" class="counter-display" style="display: none; margin-top: 1rem; color: #94a3b8; font-size: 0.875rem; text-align: center;">Clicked 0 times</p>
+  <div class="split-layout">
+    <div class="code-panel">
+      <pre><code><span class="token keyword">let</span> count <span class="token keyword">=</span> <span class="token string">0</span>;
+
+<span class="token keyword">function</span> <span class="token function">handleCardClick</span>() {
+  count++;
+  
+  <span id="highlight-text" style="transition: background-color 0.3s;">actionBtn.textContent = <span class="token string">'Clicked!'</span>;</span>
+  
+  <span id="highlight-counter" style="transition: background-color 0.3s;">counterText.textContent = <span class="token string">`Clicked ${count} times`</span>;</span>
+}
+
+<span class="token comment">// Listen for the click event</span>
+actionBtn.<span class="token function">addEventListener</span>(<span class="token string">'click'</span>, handleCardClick);</code></pre>
     </div>
-  </main>
+
+    <div class="preview-panel themed-preview">
+      <div class="card">
+        <h2 class="card-title">Frontend Development</h2>
+        <p class="card-text">Building the user interface of the web.</p>
+        <button id="action-btn" class="card-btn">Learn More</button>
+        <p id="counter-text" class="counter-display" style="display: none; margin-top: 1.5rem; color: #f7df1e; font-size: 0.875rem; text-align: center; font-weight: bold; font-family: 'Inter', sans-serif;">Clicked 0 times</p>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

@@ -4,32 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stage 1: HTML</title>
+  <link rel="stylesheet" href="../xray.css">
 </head>
 <body>
-  <a href="../">← Back to Home</a>
-  
-  <br><br>
-  
-  <small><em>This is an &lt;h1&gt; (main title)</em></small>
-  <h1>Stage 1: Pure HTML</h1>
-  
-  <small><em>This is a &lt;p&gt; (paragraph)</em></small>
-  <p>HTML defines structure, not appearance or behavior. It tells the browser what the content is.</p>
+  <header class="xray-header">
+    <a href="../" class="back-link">← Back to Home</a>
+    <h1>Stage 1: Pure HTML</h1>
+    <div style="width: 100px;"></div> <!-- Spacer -->
+  </header>
 
-  <hr>
+  <div class="split-layout">
+    <div class="code-panel">
+      <pre><code><span class="token comment">&lt;!-- The "Card" Component (Raw HTML) --&gt;</span>
+<span class="token tag">&lt;div&gt;</span>
+  <span class="token tag">&lt;h2&gt;</span>Frontend Development<span class="token tag">&lt;/h2&gt;</span>
+  
+  <span class="token tag">&lt;p&gt;</span>Building the user interface of the web.<span class="token tag">&lt;/p&gt;</span>
+  
+  <span class="token tag">&lt;button&gt;</span>Learn More<span class="token tag">&lt;/button&gt;</span>
+<span class="token tag">&lt;/div&gt;</span></code></pre>
+    </div>
 
-  <small><em>This is a &lt;div&gt; containing the "Card" component</em></small>
-  <div>
-    <small><em>This is an &lt;h2&gt; (subtitle)</em></small>
-    <h2>Frontend Development</h2>
-    
-    <small><em>This is a &lt;p&gt; (paragraph)</em></small>
-    <p>Building the user interface of the web.</p>
-    
-    <small><em>This is a &lt;button&gt;</em></small>
-    <br>
-    <button>Learn More</button>
+    <div class="preview-panel">
+      <small><em>This layout is styled for X-Ray view, but the component below is pure HTML.</em></small>
+      <hr>
+      <br>
+
+      <!-- The exact component -->
+      <div>
+        <h2>Frontend Development</h2>
+        <p>Building the user interface of the web.</p>
+        <button>Learn More</button>
+      </div>
+
+    </div>
   </div>
-
 </body>
 </html>

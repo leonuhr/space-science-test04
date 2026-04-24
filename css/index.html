@@ -4,28 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stage 2: CSS</title>
+  <link rel="stylesheet" href="../xray.css">
   <link id="main-style" rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
+  <header class="xray-header">
     <a href="../" class="back-link">← Back to Home</a>
-  </nav>
-
-  <header>
-    <h1>Stage 2: CSS Added</h1>
-    <p class="description">CSS = visual layer. It makes the raw HTML look appealing.</p>
-    <button onclick="document.getElementById('main-style').disabled = !document.getElementById('main-style').disabled" class="toggle-btn">
+    <h1 style="color: #60a5fa;">Stage 2: CSS Added</h1>
+    <button onclick="document.getElementById('main-style').disabled = !document.getElementById('main-style').disabled" class="toggle-btn" style="padding: 0.5rem 1rem; border-radius: 0.5rem; background: transparent; color: white; border: 1px solid #334155; cursor: pointer;">
       Toggle CSS ON/OFF
     </button>
   </header>
 
-  <main>
-    <div class="card">
-      <h2 class="card-title">Frontend Development</h2>
-      <p class="card-text">Building the user interface of the web.</p>
-      <button class="card-btn">Learn More</button>
-    </div>
-  </main>
+  <div class="split-layout">
+    <div class="code-panel">
+      <pre><code><span class="token comment">/* Glassmorphism Card CSS */</span>
+<span class="token tag">.card</span> {
+  <span class="token attr">background</span>: <span class="token string">rgba(30, 41, 59, 0.6)</span>;
+  <span class="token attr">backdrop-filter</span>: <span class="token string">blur(12px)</span>;
+  <span class="token attr">border</span>: <span class="token string">1px solid rgba(255, 255, 255, 0.05)</span>;
+  <span class="token attr">border-radius</span>: <span class="token string">1rem</span>;
+  <span class="token attr">padding</span>: <span class="token string">2.5rem</span>;
+  <span class="token attr">box-shadow</span>: <span class="token string">0 10px 25px rgba(0,0,0,0.5)</span>;
+  <span class="token attr">transition</span>: <span class="token string">transform 0.4s</span>;
+}
 
+<span class="token tag">.card:hover</span> {
+  <span class="token attr">transform</span>: <span class="token string">translateY(-10px)</span>;
+}
+
+<span class="token tag">.card-btn</span> {
+  <span class="token attr">background</span>: <span class="token string">#3b82f6</span>;
+  <span class="token attr">color</span>: <span class="token string">white</span>;
+  <span class="token attr">border</span>: <span class="token string">none</span>;
+  <span class="token attr">border-radius</span>: <span class="token string">0.5rem</span>;
+  <span class="token attr">padding</span>: <span class="token string">0.75rem 1.5rem</span>;
+  <span class="token attr">cursor</span>: <span class="token string">pointer</span>;
+}</code></pre>
+    </div>
+
+    <div class="preview-panel themed-preview">
+      <div class="card">
+        <h2 class="card-title">Frontend Development</h2>
+        <p class="card-text">Building the user interface of the web.</p>
+        <button class="card-btn">Learn More</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
