@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How the Web Actually Works</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --text-color: #f8fafc;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --html-color: #e34c26;
+      --css-color: #264de4;
+      --js-color: #f7df1e;
+      --react-color: #61dafb;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.25rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin-bottom: 4rem;
+      line-height: 1.6;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .nav-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      border-color: currentColor;
+    }
+
+    .nav-card h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .nav-card.html:hover { border-color: var(--html-color); }
+    .nav-card.css:hover { border-color: var(--css-color); }
+    .nav-card.js:hover { border-color: var(--js-color); }
+    .nav-card.react:hover { border-color: var(--react-color); }
+
+    .nav-card p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .html .badge { background: rgba(227, 76, 38, 0.1); color: var(--html-color); }
+    .css .badge { background: rgba(38, 77, 228, 0.1); color: var(--css-color); }
+    .js .badge { background: rgba(247, 223, 30, 0.1); color: var(--js-color); }
+    .react .badge { background: rgba(97, 218, 251, 0.1); color: var(--react-color); }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>How the Web Actually Works</h1>
+  <p class="subtitle">A visual, interactive journey through the evolution of frontend web development. See how the exact same idea transforms across 4 stages of web technology.</p>
+
+  <div class="nav-grid">
+    <a href="html/" class="nav-card html">
+      <span class="badge">Stage 1</span>
+      <h2>HTML</h2>
+      <p>Structure and content. The bare bones of the web.</p>
+    </a>
+    <a href="css/" class="nav-card css">
+      <span class="badge">Stage 2</span>
+      <h2>CSS</h2>
+      <p>Visual presentation. Making things look good.</p>
+    </a>
+    <a href="js/" class="nav-card js">
+      <span class="badge">Stage 3</span>
+      <h2>JavaScript</h2>
+      <p>Behavior and logic. Adding interactivity.</p>
+    </a>
+    <a href="react/" class="nav-card react">
+      <span class="badge">Stage 4</span>
+      <h2>React</h2>
+      <p>Components and state. Building modern UIs.</p>
+    </a>
+  </div>
+</body>
+</html>
