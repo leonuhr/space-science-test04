@@ -3,40 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 1: HTML</title>
+  <title>Stage 1: HTML — How the Web Works</title>
   <link rel="stylesheet" href="../xray.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .concepts-panel {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #334155;
+      background: #0f172a;
+    }
+    .concepts-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e34c26;
+      margin: 0 0 1rem 0;
+    }
+    .concept-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .concept-item {
+      background: rgba(227, 76, 38, 0.06);
+      border: 1px solid rgba(227, 76, 38, 0.2);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+    }
+    .concept-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: #f97316;
+      margin-bottom: 0.25rem;
+    }
+    .concept-item span {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .insight-box {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid #e34c26;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .insight-box strong { color: #f8fafc; }
+    .code-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #475569;
+      padding: 1.5rem 2rem 0.5rem;
+    }
+  </style>
 </head>
 <body>
   <header class="xray-header">
     <a href="../" class="back-link">← Back to Home</a>
-    <h1>Stage 1: Pure HTML</h1>
-    <div style="width: 100px;"></div> <!-- Spacer -->
+    <h1 style="color: #e34c26;">Stage 1: Pure HTML</h1>
+    <div style="width: 100px;"></div>
   </header>
 
   <div class="split-layout">
-    <div class="code-panel">
-      <pre><code><span class="token comment">&lt;!-- The "Card" Component (Raw HTML) --&gt;</span>
+    <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
+
+      <!-- CONCEPTS -->
+      <div class="concepts-panel">
+        <p class="concepts-title">Core Concepts</p>
+        <ul class="concept-list">
+          <li class="concept-item">
+            <strong>HTML = Structure, not appearance</strong>
+            <span>HTML tells the browser <em>what things are</em> — a heading, a paragraph, a button. It has zero say in how they look.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Tags &amp; Elements</strong>
+            <span>An element is an opening tag, its content, and a closing tag: <code style="color:#ce9178">&lt;h2&gt;Title&lt;/h2&gt;</code>. Tags wrap content to give it meaning.</span>
+          </li>
+          <li class="concept-item">
+            <strong>The DOM</strong>
+            <span>The browser parses HTML into a tree called the DOM (Document Object Model). CSS and JS work by reading and modifying this tree.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Semantic HTML</strong>
+            <span>Use elements for their <em>meaning</em>, not their default looks. <code style="color:#ce9178">&lt;button&gt;</code> is keyboard-accessible; a <code style="color:#ce9178">&lt;div&gt;</code> styled as a button is not.</span>
+          </li>
+        </ul>
+        <div class="insight-box">
+          <strong>Without HTML:</strong> There is no content, no structure, no web page. Even the most complex React apps compile down to HTML elements. HTML is the unbreakable foundation — every other technology is built on top of it.
+        </div>
+      </div>
+
+      <!-- CODE -->
+      <div class="code-section-label">Source Code</div>
+      <div style="padding: 0 2rem 2rem; flex:1;">
+        <pre><code><span class="token comment">&lt;!-- The "Card" Component (Raw HTML) --&gt;</span>
 <span class="token tag">&lt;div&gt;</span>
+
+  <span class="token comment">&lt;!-- Heading: communicates hierarchy --&gt;</span>
   <span class="token tag">&lt;h2&gt;</span>Frontend Development<span class="token tag">&lt;/h2&gt;</span>
-  
+
+  <span class="token comment">&lt;!-- Paragraph: a block of descriptive text --&gt;</span>
   <span class="token tag">&lt;p&gt;</span>Building the user interface of the web.<span class="token tag">&lt;/p&gt;</span>
-  
+
+  <span class="token comment">&lt;!-- Button: a semantic interactive element --&gt;</span>
   <span class="token tag">&lt;button&gt;</span>Learn More<span class="token tag">&lt;/button&gt;</span>
-<span class="token tag">&lt;/div&gt;</span></code></pre>
+
+<span class="token tag">&lt;/div&gt;</span>
+
+<span class="token comment">&lt;!-- Notice: no colors, no layout,
+     no fonts. The browser applies its
+     own default styles to everything. --&gt;</span></code></pre>
+      </div>
     </div>
 
-    <div class="preview-panel">
-      <small><em>This layout is styled for X-Ray view, but the component below is pure HTML.</em></small>
-      <hr>
-      <br>
+    <div class="preview-panel" style="display:flex; flex-direction:column; gap:1rem; padding:2rem; background: #fff; color:#000;">
+      <p style="margin:0; font-size:0.8rem; color:#666; font-style:italic; font-family:'Inter',sans-serif;">
+        ↓ Raw browser defaults. No stylesheet applied.
+      </p>
+      <hr style="border-color:#ccc; margin:0;">
 
-      <!-- The exact component -->
+      <!-- The exact component — pure HTML, browser defaults -->
       <div>
         <h2>Frontend Development</h2>
         <p>Building the user interface of the web.</p>
         <button>Learn More</button>
       </div>
 
+      <hr style="border-color:#eee; margin:0.5rem 0 0;">
+      <p style="margin:0; font-size:0.75rem; color:#888; font-family:'Inter',sans-serif; line-height:1.6;">
+        The browser applies its own <strong>user-agent stylesheet</strong> — giving Times New Roman, blue links, and grey buttons. This is HTML's baseline appearance before any CSS exists.
+      </p>
     </div>
   </div>
 </body>

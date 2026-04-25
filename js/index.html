@@ -3,33 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 3: JavaScript</title>
+  <title>Stage 3: JavaScript — How the Web Works</title>
   <link rel="stylesheet" href="../xray.css">
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .concepts-panel {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #334155;
+      background: #0f172a;
+    }
+    .concepts-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f7df1e;
+      margin: 0 0 1rem 0;
+    }
+    .concept-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .concept-item {
+      background: rgba(247, 223, 30, 0.06);
+      border: 1px solid rgba(247, 223, 30, 0.2);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+    }
+    .concept-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: #f7df1e;
+      margin-bottom: 0.25rem;
+    }
+    .concept-item span {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .insight-box {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid #f7df1e;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .insight-box strong { color: #f8fafc; }
+    .code-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #475569;
+      padding: 1.5rem 2rem 0.5rem;
+    }
+    .toggle-btn-styled {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: transparent;
+      color: white;
+      border: 1px solid #334155;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .toggle-btn-styled:hover { background: rgba(255,255,255,0.05); border-color: #f7df1e; }
+  </style>
 </head>
 <body>
   <header class="xray-header">
     <a href="../" class="back-link">← Back to Home</a>
     <h1 style="color: #f7df1e;">Stage 3: JavaScript Added</h1>
-    <button id="disable-js-btn" class="toggle-btn" style="padding: 0.5rem 1rem; border-radius: 0.5rem; background: transparent; color: white; border: 1px solid #334155; cursor: pointer;">
-      Disable JS
+    <button id="disable-js-btn" class="toggle-btn-styled">
+      ⏸ Disable JS
     </button>
   </header>
 
   <div class="split-layout">
-    <div class="code-panel">
-      <pre><code><span class="token keyword">let</span> count <span class="token keyword">=</span> <span class="token string">0</span>;
+    <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
+
+      <!-- CONCEPTS -->
+      <div class="concepts-panel">
+        <p class="concepts-title">Core Concepts</p>
+        <ul class="concept-list">
+          <li class="concept-item">
+            <strong>State (Memory)</strong>
+            <span>Variables like <code style="color:#ce9178">count</code> allow the page to remember things that happen over time, rather than just what was loaded initially.</span>
+          </li>
+          <li class="concept-item">
+            <strong>The Event Loop</strong>
+            <span>JS waits for things to happen. <code style="color:#ce9178">addEventListener</code> tells the browser: "When a user clicks this, run my function."</span>
+          </li>
+          <li class="concept-item">
+            <strong>DOM Manipulation</strong>
+            <span>JS can reach into the HTML structure, find elements, and change their text, styles, or classes dynamically on the fly.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Imperative Logic</strong>
+            <span>You have to write step-by-step instructions. "Find the button, change its text, make it visible, increment the counter."</span>
+          </li>
+        </ul>
+        <div class="insight-box">
+          <strong>Click the "Learn More" button</strong> to see the JavaScript execute. The exact lines of code responsible for the behavior will light up on the left as they run.
+        </div>
+      </div>
+
+      <!-- CODE -->
+      <div class="code-section-label">Source Code — script.js</div>
+      <div style="padding: 0 2rem 2rem; flex:1;">
+        <pre><code><span class="token comment">// 1. State: remembering data</span>
+<span class="token keyword">let</span> count <span class="token keyword">=</span> <span class="token string">0</span>;
 
 <span class="token keyword">function</span> <span class="token function">handleCardClick</span>() {
+  <span class="token comment">// 2. Logic: incrementing the counter</span>
   count++;
   
+  <span class="token comment">// 3. DOM Manipulation: updating the UI</span>
   <span id="highlight-text" style="transition: background-color 0.3s;">actionBtn.textContent = <span class="token string">'Clicked!'</span>;</span>
   
   <span id="highlight-counter" style="transition: background-color 0.3s;">counterText.textContent = <span class="token string">`Clicked ${count} times`</span>;</span>
 }
 
-<span class="token comment">// Listen for the click event</span>
+<span class="token comment">// 4. Events: listening for user actions</span>
 actionBtn.<span class="token function">addEventListener</span>(<span class="token string">'click'</span>, handleCardClick);</code></pre>
+      </div>
     </div>
 
     <div class="preview-panel themed-preview">

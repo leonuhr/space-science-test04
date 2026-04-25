@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 5: TypeScript — How the Web Works</title>
+  <link rel="stylesheet" href="../xray.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .concepts-panel {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #334155;
+      background: #0f172a;
+    }
+    .concepts-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #3178C6;
+      margin: 0 0 1rem 0;
+    }
+    .concept-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .concept-item {
+      background: rgba(49, 120, 198, 0.06);
+      border: 1px solid rgba(49, 120, 198, 0.2);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+    }
+    .concept-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: #3178C6;
+      margin-bottom: 0.25rem;
+    }
+    .concept-item span {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .insight-box {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid #3178C6;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .insight-box strong { color: #f8fafc; }
+    .code-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #475569;
+      padding: 1.5rem 2rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ts-toggle {
+      background: rgba(49, 120, 198, 0.15);
+      border: 1px solid #3178C6;
+      color: #3178C6;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    #compiled-code { display: none; }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../" class="back-link">← Back to Home</a>
+    <h1 style="color: #3178C6;">Stage 5: TypeScript</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <div class="split-layout">
+    <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
+
+      <!-- CONCEPTS -->
+      <div class="concepts-panel">
+        <p class="concepts-title">Core Concepts</p>
+        <ul class="concept-list">
+          <li class="concept-item">
+            <strong>Static Typing</strong>
+            <span>JavaScript lets a variable be a number, then a string. TypeScript forces you to define types upfront, preventing runtime errors.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Interfaces</strong>
+            <span>You can define the exact shape of data. If a function expects a <code style="color:#ce9178">User</code>, passing an object missing a <code style="color:#ce9178">name</code> property throws an error immediately.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Compilation</strong>
+            <span>Browsers can't run TypeScript natively. It must be compiled (transpiled) down to plain JavaScript before it hits the browser.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Developer Experience</strong>
+            <span>The biggest benefit isn't the final code—it's the autocomplete and error checking in your code editor while you write it.</span>
+          </li>
+        </ul>
+        <div class="insight-box">
+          <strong>Toggle between TS and JS</strong> using the button below. Notice how all the type annotations disappear in the compiled code!
+        </div>
+      </div>
+
+      <!-- CODE -->
+      <div class="code-section-label">
+        <span>Source Code</span>
+        <button id="ts-toggle-btn" class="ts-toggle">Show Compiled JS</button>
+      </div>
+      
+      <div id="ts-code" style="padding: 0 2rem 2rem; flex:1;">
+        <pre><code><span class="token comment">// Define the exact shape of our component props</span>
+<span class="token keyword">interface</span> <span class="token class-name">CardProps</span> {
+  title<span class="token punctuation">:</span> <span class="token keyword">string</span>;
+  description<span class="token punctuation">:</span> <span class="token keyword">string</span>;
+  initialCount<span class="token punctuation">?:</span> <span class="token keyword">number</span>; <span class="token comment">// Optional</span>
+}
+
+<span class="token comment">// Function must return void, takes specific types</span>
+<span class="token keyword">function</span> <span class="token function">renderCard</span>(props<span class="token punctuation">:</span> CardProps)<span class="token punctuation">:</span> <span class="token keyword">void</span> {
+  <span class="token keyword">let</span> count<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token keyword">=</span> props.initialCount <span class="token operator">||</span> <span class="token number">0</span>;
+  
+  <span class="token comment">// TypeScript knows btn is an HTMLButtonElement</span>
+  <span class="token keyword">const</span> btn <span class="token keyword">=</span> document.<span class="token function">querySelector</span><span class="token operator">&lt;</span>HTMLButtonElement<span class="token operator">&gt;</span>(<span class="token string">'#action-btn'</span>)<span class="token operator">!</span>;
+  
+  btn.<span class="token function">addEventListener</span>(<span class="token string">'click'</span>, (event<span class="token punctuation">:</span> MouseEvent) <span class="token operator">=&gt;</span> {
+    count<span class="token operator">++</span>;
+    console.<span class="token function">log</span>(<span class="token string">`Count is strictly a number: ${count}`</span>);
+    
+    <span class="token comment">// If you tried to do: count = "hello"</span>
+    <span class="token comment">// TypeScript would throw an error before running!</span>
+  });
+}
+
+<span class="token comment">// Safe execution</span>
+<span class="token function">renderCard</span>({
+  title<span class="token punctuation">:</span> <span class="token string">"Type Safety"</span>,
+  description<span class="token punctuation">:</span> <span class="token string">"Catching bugs at compile time."</span>
+});</code></pre>
+      </div>
+
+      <div id="compiled-code" style="padding: 0 2rem 2rem; flex:1;">
+        <pre><code><span class="token comment">// Notice how interfaces and types are gone!</span>
+<span class="token comment">// The browser only sees this plain JS:</span>
+
+<span class="token keyword">function</span> <span class="token function">renderCard</span>(props) {
+    <span class="token keyword">let</span> count <span class="token keyword">=</span> props.initialCount <span class="token operator">||</span> <span class="token number">0</span>;
+
+    <span class="token keyword">const</span> btn <span class="token keyword">=</span> document.<span class="token function">querySelector</span>(<span class="token string">'#action-btn'</span>);
+
+    btn.<span class="token function">addEventListener</span>(<span class="token string">'click'</span>, (event) <span class="token operator">=&gt;</span> {
+        count<span class="token operator">++</span>;
+        console.<span class="token function">log</span>(<span class="token string">`Count is strictly a number: ${count}`</span>);
+    });
+}
+
+<span class="token function">renderCard</span>({
+    title<span class="token punctuation">:</span> <span class="token string">"Type Safety"</span>,
+    description<span class="token punctuation">:</span> <span class="token string">"Catching bugs at compile time."</span>
+});</code></pre>
+      </div>
+    </div>
+
+    <div class="preview-panel themed-preview">
+      <div class="card">
+        <h2 class="card-title">Type Safety</h2>
+        <p class="card-text">Catching bugs at compile time.</p>
+        <button id="action-btn" class="card-btn">Learn More</button>
+        <p id="ts-log" style="display:none; margin-top:1rem; color:#3178C6; font-size:0.85rem; text-align:center; font-family:monospace;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

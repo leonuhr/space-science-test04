@@ -4,11 +4,48 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stage 4: React</title>
-    <script type="module" crossorigin src="./assets/index-DzkWjzgy.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CwW1JJun.css">
+    <title>Stage 4: React — How the Web Works</title>
+    <script type="module" crossorigin src="./assets/index-CfZAwaLS.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bsc1xaRo.css">
   </head>
   <body>
-    <div id="root"></div>
+    <header class="xray-header">
+      <a href="../" class="back-link">← Back to Home</a>
+      <h1 style="color: #61dafb;">Stage 4: React Added</h1>
+      <div style="width: 100px;"></div>
+    </header>
+
+    <div class="split-layout">
+      <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
+        
+        <!-- CONCEPTS -->
+        <div class="concepts-panel" style="padding: 1.5rem 2rem; border-bottom: 1px solid #334155; background: #0f172a;">
+          <p style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #61dafb; margin: 0 0 1rem 0;">Core Concepts</p>
+          <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0; padding: 0; list-style: none;">
+            <li style="background: rgba(97, 218, 251, 0.06); border: 1px solid rgba(97, 218, 251, 0.2); border-radius: 0.5rem; padding: 0.75rem 1rem;">
+              <strong style="display: block; font-size: 0.8rem; color: #61dafb; margin-bottom: 0.25rem;">Components</strong>
+              <span style="font-size: 0.78rem; color: #94a3b8; line-height: 1.5;">HTML + CSS + JS bundled together into reusable custom tags.</span>
+            </li>
+            <li style="background: rgba(97, 218, 251, 0.06); border: 1px solid rgba(97, 218, 251, 0.2); border-radius: 0.5rem; padding: 0.75rem 1rem;">
+              <strong style="display: block; font-size: 0.8rem; color: #61dafb; margin-bottom: 0.25rem;">Declarative UI</strong>
+              <span style="font-size: 0.78rem; color: #94a3b8; line-height: 1.5;">Instead of telling the browser <em>how</em> to change the DOM step-by-step, you tell React <em>what</em> the UI should look like for any given state.</span>
+            </li>
+            <li style="background: rgba(97, 218, 251, 0.06); border: 1px solid rgba(97, 218, 251, 0.2); border-radius: 0.5rem; padding: 0.75rem 1rem;">
+              <strong style="display: block; font-size: 0.8rem; color: #61dafb; margin-bottom: 0.25rem;">Global State</strong>
+              <span style="font-size: 0.78rem; color: #94a3b8; line-height: 1.5;">Data can live outside individual components, allowing multiple parts of an app to stay perfectly synchronized.</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- REACT ROOT -->
+        <div id="root" style="flex:1; display:flex; flex-direction:column;"></div>
+
+      </div>
+
+      <div class="preview-panel themed-preview" id="react-preview-target">
+        <!-- React App renders previews here via Portals -->
+      </div>
+    </div>
+    
   </body>
 </html>
