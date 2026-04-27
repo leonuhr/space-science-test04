@@ -6,7 +6,13 @@
   <title>Stage 5: TypeScript — How the Web Works</title>
   <link rel="stylesheet" href="../xray.css">
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Load React and Babel (with TypeScript support) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <style>
     .concepts-panel {
       padding: 1.5rem 2rem;
@@ -68,64 +74,66 @@
       justify-content: space-between;
       align-items: center;
     }
-    .ts-toggle {
-      background: rgba(49, 120, 198, 0.15);
-      border: 1px solid #3178C6;
-      color: #3178C6;
+    .file-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .file-tab {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
       padding: 0.25rem 0.75rem;
       border-radius: 0.25rem;
-      cursor: pointer;
       font-size: 0.7rem;
-      font-weight: 700;
+      cursor: pointer;
     }
-    #compiled-code { display: none; }
+    .file-tab.active {
+      background: #3178C6;
+      color: #fff;
+      border-color: #3178C6;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <header class="xray-header">
     <a href="../" class="back-link">← Back to Home</a>
-    <h1 style="color: #3178C6;">Stage 5: TypeScript</h1>
+    <h1 style="color: #3178C6;">Stage 5: TypeScript Added</h1>
     <div style="width: 100px;"></div>
   </header>
 
   <div class="split-layout">
     <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
-
+      
       <!-- CONCEPTS -->
       <div class="concepts-panel">
-        <p class="concepts-title">Core Concepts</p>
+        <p class="concepts-title">Core Concepts: Type Safety</p>
         <ul class="concept-list">
           <li class="concept-item">
             <strong>Static Typing</strong>
-            <span>JavaScript lets a variable be a number, then a string. TypeScript forces you to define types upfront, preventing runtime errors.</span>
+            <span>Instead of waiting for the code to run in the browser to find an error, TypeScript catches bugs <em>before</em> the code even compiles.</span>
           </li>
           <li class="concept-item">
             <strong>Interfaces</strong>
-            <span>You can define the exact shape of data. If a function expects a <code style="color:#ce9178">User</code>, passing an object missing a <code style="color:#ce9178">name</code> property throws an error immediately.</span>
+            <span><code style="color:#ce9178">interface Task</code> defines exactly what a task looks like. If you try to add a task missing a property, it throws an error immediately.</span>
           </li>
           <li class="concept-item">
-            <strong>Compilation</strong>
-            <span>Browsers can't run TypeScript natively. It must be compiled (transpiled) down to plain JavaScript before it hits the browser.</span>
+            <strong>Safe Components</strong>
+            <span>By defining <code style="color:#ce9178">TodoItemProps</code>, the component guarantees it will only ever receive the exact correct data it needs to render.</span>
           </li>
           <li class="concept-item">
             <strong>Developer Experience</strong>
-            <span>The biggest benefit isn't the final code—it's the autocomplete and error checking in your code editor while you write it.</span>
+            <span>Because the editor knows the types, it can provide perfect autocomplete. You don't have to guess if it's <code style="color:#ce9178">task.isDone</code> or <code style="color:#ce9178">task.done</code>.</span>
           </li>
         </ul>
         <div class="insight-box">
-          <strong>Toggle between TS and JS</strong> using the button below. Notice how all the type annotations disappear in the compiled code!
+          <strong>The final evolution:</strong> The app behaves exactly like Stage 4 to the user, but the developer experience is entirely transformed. Large teams can now collaborate on massive codebases without breaking each other's work!
         </div>
       </div>
-
+      
       <!-- CODE -->
       <div class="code-section-label">
         <span>Source Code</span>
-        <button id="ts-toggle-btn" class="ts-toggle">Show Compiled JS</button>
-      </div>
-      
-      <div id="ts-code" style="padding: 0 2rem 2rem; flex:1;">
-        <pre><code><span class="token comment">// Define the exact shape of our component props</span>
-<span class="token keyword">interface</span> <span class="token class-name">CardProps</span> {
   title<span class="token punctuation">:</span> <span class="token keyword">string</span>;
   description<span class="token punctuation">:</span> <span class="token keyword">string</span>;
   initialCount<span class="token punctuation">?:</span> <span class="token keyword">number</span>; <span class="token comment">// Optional</span>

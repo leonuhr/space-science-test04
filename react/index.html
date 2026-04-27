@@ -1,51 +1,345 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stage 4: React — How the Web Works</title>
-    <script type="module" crossorigin src="./assets/index-CfZAwaLS.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bsc1xaRo.css">
-  </head>
-  <body>
-    <header class="xray-header">
-      <a href="../" class="back-link">← Back to Home</a>
-      <h1 style="color: #61dafb;">Stage 4: React Added</h1>
-      <div style="width: 100px;"></div>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 4: React — How the Web Works</title>
+  <link rel="stylesheet" href="../xray.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Load React and Babel for in-browser execution -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <div class="split-layout">
-      <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
-        
-        <!-- CONCEPTS -->
-        <div class="concepts-panel" style="padding: 1.5rem 2rem; border-bottom: 1px solid #334155; background: #0f172a;">
-          <p style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #61dafb; margin: 0 0 1rem 0;">Core Concepts</p>
-          <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0; padding: 0; list-style: none;">
-            <li style="background: rgba(97, 218, 251, 0.06); border: 1px solid rgba(97, 218, 251, 0.2); border-radius: 0.5rem; padding: 0.75rem 1rem;">
-              <strong style="display: block; font-size: 0.8rem; color: #61dafb; margin-bottom: 0.25rem;">Components</strong>
-              <span style="font-size: 0.78rem; color: #94a3b8; line-height: 1.5;">HTML + CSS + JS bundled together into reusable custom tags.</span>
-            </li>
-            <li style="background: rgba(97, 218, 251, 0.06); border: 1px solid rgba(97, 218, 251, 0.2); border-radius: 0.5rem; padding: 0.75rem 1rem;">
-              <strong style="display: block; font-size: 0.8rem; color: #61dafb; margin-bottom: 0.25rem;">Declarative UI</strong>
-              <span style="font-size: 0.78rem; color: #94a3b8; line-height: 1.5;">Instead of telling the browser <em>how</em> to change the DOM step-by-step, you tell React <em>what</em> the UI should look like for any given state.</span>
-            </li>
-            <li style="background: rgba(97, 218, 251, 0.06); border: 1px solid rgba(97, 218, 251, 0.2); border-radius: 0.5rem; padding: 0.75rem 1rem;">
-              <strong style="display: block; font-size: 0.8rem; color: #61dafb; margin-bottom: 0.25rem;">Global State</strong>
-              <span style="font-size: 0.78rem; color: #94a3b8; line-height: 1.5;">Data can live outside individual components, allowing multiple parts of an app to stay perfectly synchronized.</span>
-            </li>
+  <style>
+    .concepts-panel {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #334155;
+      background: #0f172a;
+    }
+    .concepts-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #61dafb;
+      margin: 0 0 1rem 0;
+    }
+    .concept-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .concept-item {
+      background: rgba(97, 218, 251, 0.06);
+      border: 1px solid rgba(97, 218, 251, 0.2);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+    }
+    .concept-item strong {
+      display: block;
+      font-size: 0.8rem;
+      color: #61dafb;
+      margin-bottom: 0.25rem;
+    }
+    .concept-item span {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .insight-box {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid #61dafb;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .insight-box strong { color: #f8fafc; }
+    .code-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #475569;
+      padding: 1.5rem 2rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .file-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .file-tab {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+    .file-tab.active {
+      background: #61dafb;
+      color: #0f172a;
+      border-color: #61dafb;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../" class="back-link">← Back to Home</a>
+    <h1 style="color: #61dafb;">Stage 4: React Added</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <div class="split-layout">
+    <div class="code-panel" style="display:flex; flex-direction:column; padding:0; overflow-y:auto;">
+      
+      <!-- CONCEPTS -->
+      <div class="concepts-panel">
+        <p class="concepts-title">Core Concepts: Components & State</p>
+        <ul class="concept-list">
+          <li class="concept-item">
+            <strong>Components</strong>
+            <span>Instead of one huge HTML file, we break the UI into reusable pieces (like <code style="color:#ce9178">&lt;TodoItem /&gt;</code>).</span>
+          </li>
+          <li class="concept-item">
+            <strong>Declarative UI (JSX)</strong>
+            <span>Instead of step-by-step DOM manipulation, we tell React <em>what</em> the UI should look like based on the data.</span>
+          </li>
+          <li class="concept-item">
+            <strong>Reactive State (<code style="color:#ce9178">useState</code>)</strong>
+            <span>The data (<code style="color:#ce9178">tasks</code>) is the source of truth. When the data changes, React automatically updates the DOM to match. No manual syncing!</span>
+          </li>
+          <li class="concept-item">
+            <strong>Props</strong>
+            <span>We pass data and functions down from the <code style="color:#ce9178">App</code> component to the <code style="color:#ce9178">TodoItem</code> component via "props".</span>
+          </li>
+        </ul>
+        <div class="insight-box">
+          <strong>Notice the difference:</strong> In Stage 3, we had to manually count checked items and update the counter text every time something changed. In React, we just calculate <code style="color:#ce9178">completedCount</code> from the state, and React handles the rest!
+        </div>
+      </div>
+      
+      <!-- CODE -->
+      <div class="code-section-label">
+        <span>Source Code</span>
+        <div class="file-tabs">
+          <button class="file-tab active" onclick="showFile('app-code', this)">src/App.jsx</button>
+          <button class="file-tab" onclick="showFile('item-code', this)">src/components/TodoItem.jsx</button>
+        </div>
+      </div>
+
+      <div style="padding: 0 2rem 2rem; flex:1;">
+        <!-- App.jsx -->
+        <pre id="app-code" style="display: block;"><code><span class="token keyword">import</span> { useState } <span class="token keyword">from</span> <span class="token string">'react'</span>;
+<span class="token keyword">import</span> TodoItem <span class="token keyword">from</span> <span class="token string">'./components/TodoItem'</span>;
+
+<span class="token keyword">export default function</span> <span class="token function">App</span>() {
+  <span class="token comment">// Single source of truth for our tasks</span>
+  <span class="token keyword">const</span> [tasks, setTasks] <span class="token keyword">=</span> <span class="token function">useState</span>([
+    { id: 1, text: <span class="token string">'Learn HTML structure'</span>, done: <span class="token keyword">true</span> },
+    { id: 2, text: <span class="token string">'Add CSS styling'</span>, done: <span class="token keyword">true</span> },
+    { id: 3, text: <span class="token string">'Build React components'</span>, done: <span class="token keyword">false</span> }
+  ]);
+  
+  <span class="token keyword">const</span> [inputValue, setInputValue] <span class="token keyword">=</span> <span class="token function">useState</span>(<span class="token string">''</span>);
+
+  <span class="token comment">// Derived state: no manual DOM querying needed</span>
+  <span class="token keyword">const</span> completedCount <span class="token keyword">=</span> tasks.<span class="token function">filter</span>(t =&gt; t.done).length;
+
+  <span class="token keyword">const</span> <span class="token function">handleAddTask</span> <span class="token keyword">=</span> (e) =&gt; {
+    e.<span class="token function">preventDefault</span>();
+    <span class="token keyword">if</span> (!inputValue.trim()) <span class="token keyword">return</span>;
+    <span class="token function">setTasks</span>([...tasks, { id: Date.<span class="token function">now</span>(), text: inputValue, done: <span class="token keyword">false</span> }]);
+    <span class="token function">setInputValue</span>(<span class="token string">''</span>);
+  };
+
+  <span class="token keyword">const</span> <span class="token function">toggleTask</span> <span class="token keyword">=</span> (id) =&gt; {
+    <span class="token function">setTasks</span>(tasks.<span class="token function">map</span>(task =&gt; 
+      task.id <span class="token keyword">===</span> id ? { ...task, done: !task.done } : task
+    ));
+  };
+
+  <span class="token keyword">const</span> <span class="token function">deleteTask</span> <span class="token keyword">=</span> (id) =&gt; {
+    <span class="token function">setTasks</span>(tasks.<span class="token function">filter</span>(task =&gt; task.id <span class="token keyword">!==</span> id));
+  };
+
+  <span class="token keyword">return</span> (
+    <span class="token tag">&lt;div className="todo-app"&gt;</span>
+      <span class="token tag">&lt;div className="todo-header"&gt;</span>
+        <span class="token tag">&lt;h1 className="todo-title"&gt;</span>My Tasks<span class="token tag">&lt;/h1&gt;</span>
+        <span class="token tag">&lt;span className="todo-counter"&gt;</span>
+          {completedCount} of {tasks.length} tasks completed
+        <span class="token tag">&lt;/span&gt;</span>
+      <span class="token tag">&lt;/div&gt;</span>
+
+      <span class="token tag">&lt;form className="todo-form" onSubmit={handleAddTask}&gt;</span>
+        <span class="token tag">&lt;input</span> 
+          <span class="token attr">className</span>=<span class="token string">"todo-input"</span> 
+          <span class="token attr">value</span>={inputValue}
+          <span class="token attr">onChange</span>={(e) =&gt; <span class="token function">setInputValue</span>(e.target.value)}
+        <span class="token tag">/&gt;</span>
+        <span class="token tag">&lt;button type="submit" className="btn btn-primary"&gt;</span>Add<span class="token tag">&lt;/button&gt;</span>
+      <span class="token tag">&lt;/form&gt;</span>
+
+      <span class="token tag">&lt;ul className="todo-list"&gt;</span>
+        {tasks.<span class="token function">map</span>(task =&gt; (
+          <span class="token tag">&lt;TodoItem</span> 
+            <span class="token attr">key</span>={task.id} 
+            <span class="token attr">task</span>={task} 
+            <span class="token attr">onToggle</span>={toggleTask} 
+            <span class="token attr">onDelete</span>={deleteTask} 
+          <span class="token tag">/&gt;</span>
+        ))}
+      <span class="token tag">&lt;/ul&gt;</span>
+    <span class="token tag">&lt;/div&gt;</span>
+  );
+}</code></pre>
+
+        <!-- TodoItem.jsx -->
+        <pre id="item-code" style="display: none;"><code><span class="token keyword">export default function</span> <span class="token function">TodoItem</span>({ task, onToggle, onDelete }) {
+  <span class="token keyword">return</span> (
+    <span class="token tag">&lt;li className="todo-item"&gt;</span>
+      <span class="token tag">&lt;label className="todo-label"&gt;</span>
+        <span class="token tag">&lt;input</span> 
+          <span class="token attr">type</span>=<span class="token string">"checkbox"</span> 
+          <span class="token attr">className</span>=<span class="token string">"todo-checkbox"</span> 
+          <span class="token attr">checked</span>={task.done}
+          <span class="token attr">onChange</span>={() =&gt; <span class="token function">onToggle</span>(task.id)}
+        <span class="token tag">/&gt;</span>
+        <span class="token tag">&lt;span className="todo-text"&gt;</span>{task.text}<span class="token tag">&lt;/span&gt;</span>
+      <span class="token tag">&lt;/label&gt;</span>
+      <span class="token tag">&lt;button</span> 
+        <span class="token attr">className</span>=<span class="token string">"btn btn-icon btn-delete"</span> 
+        <span class="token attr">onClick</span>={() =&gt; <span class="token function">onDelete</span>(task.id)}
+      <span class="token tag">&gt;</span>
+        ×
+      <span class="token tag">&lt;/button&gt;</span>
+    <span class="token tag">&lt;/li&gt;</span>
+  );
+}</code></pre>
+      </div>
+
+    </div>
+
+    <div class="preview-panel themed-preview" id="react-preview-target">
+      <!-- React App renders here -->
+    </div>
+  </div>
+
+  <script>
+    function showFile(id, btn) {
+      document.getElementById('app-code').style.display = 'none';
+      document.getElementById('item-code').style.display = 'none';
+      document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
+      
+      document.getElementById(id).style.display = 'block';
+      btn.classList.add('active');
+    }
+  </script>
+  
+  <!-- Executable React Code -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    function TodoItem({ task, onToggle, onDelete }) {
+      return (
+        <li className="todo-item">
+          <label className="todo-label">
+            <input 
+              type="checkbox" 
+              className="todo-checkbox" 
+              checked={task.done}
+              onChange={() => onToggle(task.id)}
+            />
+            <span className="todo-text">{task.text}</span>
+          </label>
+          <button 
+            className="btn btn-icon btn-delete" 
+            onClick={() => onDelete(task.id)}
+          >
+            ×
+          </button>
+        </li>
+      );
+    }
+
+    function App() {
+      const [tasks, setTasks] = useState([
+        { id: 1, text: 'Learn HTML structure', done: true },
+        { id: 2, text: 'Add CSS styling', done: true },
+        { id: 3, text: 'Build React components', done: false }
+      ]);
+      const [inputValue, setInputValue] = useState('');
+
+      const completedCount = tasks.filter(t => t.done).length;
+
+      const handleAddTask = (e) => {
+        e.preventDefault();
+        if (!inputValue.trim()) return;
+        setTasks([...tasks, { id: Date.now(), text: inputValue, done: false }]);
+        setInputValue('');
+      };
+
+      const toggleTask = (id) => {
+        setTasks(tasks.map(task => 
+          task.id === id ? { ...task, done: !task.done } : task
+        ));
+      };
+
+      const deleteTask = (id) => {
+        setTasks(tasks.filter(task => task.id !== id));
+      };
+
+      return (
+        <div className="todo-app">
+          <div className="todo-header">
+            <h1 className="todo-title">My Tasks</h1>
+            <span className="todo-counter">
+              {completedCount} of {tasks.length} tasks completed
+            </span>
+          </div>
+
+          <form className="todo-form" onSubmit={handleAddTask}>
+            <input 
+              type="text" 
+              className="todo-input" 
+              placeholder="What needs to be done?"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <button type="submit" className="btn btn-primary">
+              Add Task
+            </button>
+          </form>
+
+          <ul className="todo-list">
+            {tasks.map(task => (
+              <TodoItem 
+                key={task.id} 
+                task={task} 
+                onToggle={toggleTask} 
+                onDelete={deleteTask} 
+              />
+            ))}
           </ul>
         </div>
-        
-        <!-- REACT ROOT -->
-        <div id="root" style="flex:1; display:flex; flex-direction:column;"></div>
+      );
+    }
 
-      </div>
-
-      <div class="preview-panel themed-preview" id="react-preview-target">
-        <!-- React App renders previews here via Portals -->
-      </div>
-    </div>
-    
-  </body>
+    const root = ReactDOM.createRoot(document.getElementById('react-preview-target'));
+    root.render(<App />);
+  </script>
+</body>
 </html>

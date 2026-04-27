@@ -6,7 +6,7 @@
   <title>Stage 3: JavaScript — How the Web Works</title>
   <link rel="stylesheet" href="../xray.css">
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
   <style>
     .concepts-panel {
       padding: 1.5rem 2rem;
@@ -93,58 +93,99 @@
 
       <!-- CONCEPTS -->
       <div class="concepts-panel">
-        <p class="concepts-title">Core Concepts</p>
+        <p class="concepts-title">Core Concepts: Behavior</p>
         <ul class="concept-list">
           <li class="concept-item">
-            <strong>State (Memory)</strong>
-            <span>Variables like <code style="color:#ce9178">count</code> allow the page to remember things that happen over time, rather than just what was loaded initially.</span>
-          </li>
-          <li class="concept-item">
             <strong>The Event Loop</strong>
-            <span>JS waits for things to happen. <code style="color:#ce9178">addEventListener</code> tells the browser: "When a user clicks this, run my function."</span>
+            <span>JS waits for things to happen. <code style="color:#ce9178">addEventListener</code> tells the browser: "When a user submits this form, run my function."</span>
           </li>
           <li class="concept-item">
             <strong>DOM Manipulation</strong>
-            <span>JS can reach into the HTML structure, find elements, and change their text, styles, or classes dynamically on the fly.</span>
+            <span>JS can reach into the HTML structure, find elements, and change them dynamically. We can add new <code style="color:#ce9178">&lt;li&gt;</code> elements on the fly.</span>
           </li>
           <li class="concept-item">
             <strong>Imperative Logic</strong>
-            <span>You have to write step-by-step instructions. "Find the button, change its text, make it visible, increment the counter."</span>
+            <span>Notice how we have to write step-by-step instructions: "Create an li, create a span, set text, append to ul, update counter."</span>
+          </li>
+          <li class="concept-item">
+            <strong>State (The Problem)</strong>
+            <span>The "state" (what tasks exist) is physically stored in the DOM. If we want to know how many tasks are done, we have to count the checked checkboxes.</span>
           </li>
         </ul>
         <div class="insight-box">
-          <strong>Click the "Learn More" button</strong> to see the JavaScript execute. The exact lines of code responsible for the behavior will light up on the left as they run.
+          <strong>Try adding a task.</strong> We finally have a working app! But as you add and delete items, notice how manually we have to keep the "tasks completed" text in sync with the actual list.
         </div>
       </div>
 
       <!-- CODE -->
       <div class="code-section-label">Source Code — script.js</div>
       <div style="padding: 0 2rem 2rem; flex:1;">
-        <pre><code><span class="token comment">// 1. State: remembering data</span>
-<span class="token keyword">let</span> count <span class="token keyword">=</span> <span class="token string">0</span>;
+        <pre><code><span class="token comment">// Select elements from the DOM</span>
+<span class="token keyword">const</span> form <span class="token keyword">=</span> document.<span class="token function">getElementById</span>(<span class="token string">'todo-form'</span>);
+<span class="token keyword">const</span> input <span class="token keyword">=</span> document.<span class="token function">getElementById</span>(<span class="token string">'todo-input'</span>);
+<span class="token keyword">const</span> list <span class="token keyword">=</span> document.<span class="token function">getElementById</span>(<span class="token string">'todo-list'</span>);
+<span class="token keyword">const</span> counter <span class="token keyword">=</span> document.<span class="token function">getElementById</span>(<span class="token string">'todo-counter'</span>);
 
-<span class="token keyword">function</span> <span class="token function">handleCardClick</span>() {
-  <span class="token comment">// 2. Logic: incrementing the counter</span>
-  count++;
-  
-  <span class="token comment">// 3. DOM Manipulation: updating the UI</span>
-  <span id="highlight-text" style="transition: background-color 0.3s;">actionBtn.textContent = <span class="token string">'Clicked!'</span>;</span>
-  
-  <span id="highlight-counter" style="transition: background-color 0.3s;">counterText.textContent = <span class="token string">`Clicked ${count} times`</span>;</span>
+<span class="token comment">// Imperative state syncing: manually read the DOM</span>
+<span class="token keyword">function</span> <span class="token function">updateCounter</span>() {
+  <span class="token keyword">const</span> total <span class="token keyword">=</span> list.<span class="token function">querySelectorAll</span>(<span class="token string">'.todo-item'</span>).<span class="token property">length</span>;
+  <span class="token keyword">const</span> done <span class="token keyword">=</span> list.<span class="token function">querySelectorAll</span>(<span class="token string">'.todo-checkbox:checked'</span>).<span class="token property">length</span>;
+  counter.<span class="token property">textContent</span> <span class="token keyword">=</span> <span class="token string">`${done} of ${total} tasks completed`</span>;
 }
 
-<span class="token comment">// 4. Events: listening for user actions</span>
-actionBtn.<span class="token function">addEventListener</span>(<span class="token string">'click'</span>, handleCardClick);</code></pre>
+<span class="token comment">// Event Listener for form submission</span>
+form.<span class="token function">addEventListener</span>(<span class="token string">'submit'</span>, <span class="token keyword">function</span>(e) {
+  e.<span class="token function">preventDefault</span>(); <span class="token comment">// Prevent page refresh</span>
+  <span class="token keyword">if</span> (!input.<span class="token property">value</span>) <span class="token keyword">return</span>;
+
+  <span class="token comment">// Imperatively build the DOM elements</span>
+  <span class="token keyword">const</span> li <span class="token keyword">=</span> document.<span class="token function">createElement</span>(<span class="token string">'li'</span>);
+  li.<span class="token property">className</span> <span class="token keyword">=</span> <span class="token string">'todo-item'</span>;
+  li.<span class="token property">innerHTML</span> <span class="token keyword">=</span> <span class="token string">`
+    &lt;label class="todo-label"&gt;
+      &lt;input type="checkbox" class="todo-checkbox"&gt;
+      &lt;span class="todo-text"&gt;${input.value}&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;button class="btn btn-icon btn-delete"&gt;×&lt;/button&gt;
+  `</span>;
+
+  <span class="token comment">// Add delete logic</span>
+  <span class="token keyword">const</span> delBtn <span class="token keyword">=</span> li.<span class="token function">querySelector</span>(<span class="token string">'.btn-delete'</span>);
+  delBtn.<span class="token function">addEventListener</span>(<span class="token string">'click'</span>, () =&gt; {
+    li.<span class="token function">remove</span>();
+    <span class="token function">updateCounter</span>();
+  });
+
+  <span class="token comment">// Add toggle logic</span>
+  <span class="token keyword">const</span> checkbox <span class="token keyword">=</span> li.<span class="token function">querySelector</span>(<span class="token string">'.todo-checkbox'</span>);
+  checkbox.<span class="token function">addEventListener</span>(<span class="token string">'change'</span>, updateCounter);
+
+  list.<span class="token function">appendChild</span>(li);
+  input.<span class="token property">value</span> <span class="token keyword">=</span> <span class="token string">''</span>;
+  <span class="token function">updateCounter</span>();
+});</code></pre>
       </div>
     </div>
 
+    <!-- PREVIEW -->
     <div class="preview-panel themed-preview">
-      <div class="card">
-        <h2 class="card-title">Frontend Development</h2>
-        <p class="card-text">Building the user interface of the web.</p>
-        <button id="action-btn" class="card-btn">Learn More</button>
-        <p id="counter-text" class="counter-display" style="display: none; margin-top: 1.5rem; color: #f7df1e; font-size: 0.875rem; text-align: center; font-weight: bold; font-family: 'Inter', sans-serif;">Clicked 0 times</p>
+      
+      <div class="todo-app">
+        <div class="todo-header">
+          <h1 class="todo-title">My Tasks</h1>
+          <span class="todo-counter" id="todo-counter">0 of 0 tasks completed</span>
+        </div>
+
+        <form class="todo-form" id="todo-form">
+          <input type="text" class="todo-input" id="todo-input" placeholder="What needs to be done?">
+          <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
+
+        <ul class="todo-list" id="todo-list">
+          <!-- JS will add items here -->
+        </ul>
       </div>
+
     </div>
   </div>
 

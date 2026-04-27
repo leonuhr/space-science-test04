@@ -78,50 +78,63 @@
 
       <!-- CONCEPTS -->
       <div class="concepts-panel">
-        <p class="concepts-title">Core Concepts</p>
+        <p class="concepts-title">Core Concepts: Structure</p>
         <ul class="concept-list">
           <li class="concept-item">
             <strong>HTML = Structure, not appearance</strong>
-            <span>HTML tells the browser <em>what things are</em> — a heading, a paragraph, a button. It has zero say in how they look.</span>
+            <span>HTML tells the browser <em>what things are</em> — a heading, a list, a button. It has zero say in how they look.</span>
           </li>
           <li class="concept-item">
-            <strong>Tags &amp; Elements</strong>
-            <span>An element is an opening tag, its content, and a closing tag: <code style="color:#ce9178">&lt;h2&gt;Title&lt;/h2&gt;</code>. Tags wrap content to give it meaning.</span>
+            <strong>Tags & Elements</strong>
+            <span>An element is an opening tag, content, and closing tag: <code style="color:#ce9178">&lt;h1&gt;Tasks&lt;/h1&gt;</code>. Tags wrap content to give it meaning.</span>
           </li>
           <li class="concept-item">
             <strong>The DOM</strong>
-            <span>The browser parses HTML into a tree called the DOM (Document Object Model). CSS and JS work by reading and modifying this tree.</span>
+            <span>The browser parses HTML into a tree called the DOM (Document Object Model). All later technologies depend on this tree existing.</span>
           </li>
           <li class="concept-item">
             <strong>Semantic HTML</strong>
-            <span>Use elements for their <em>meaning</em>, not their default looks. <code style="color:#ce9178">&lt;button&gt;</code> is keyboard-accessible; a <code style="color:#ce9178">&lt;div&gt;</code> styled as a button is not.</span>
+            <span>Use elements for their <em>meaning</em>. We use <code style="color:#ce9178">&lt;ul&gt;</code> and <code style="color:#ce9178">&lt;li&gt;</code> because this is logically a list of items.</span>
           </li>
         </ul>
         <div class="insight-box">
-          <strong>Without HTML:</strong> There is no content, no structure, no web page. Even the most complex React apps compile down to HTML elements. HTML is the unbreakable foundation — every other technology is built on top of it.
+          <strong>What's missing?</strong> Everything else. There is no styling (it looks like a document from 1995) and no interactivity (clicking "Add" or "Delete" does absolutely nothing).
         </div>
       </div>
 
       <!-- CODE -->
       <div class="code-section-label">Source Code</div>
       <div style="padding: 0 2rem 2rem; flex:1;">
-        <pre><code><span class="token comment">&lt;!-- The "Card" Component (Raw HTML) --&gt;</span>
-<span class="token tag">&lt;div&gt;</span>
+        <pre><code><span class="token comment">&lt;!-- The Todo List (Raw HTML) --&gt;</span>
+<span class="token tag">&lt;div</span> <span class="token attr">id</span>=<span class="token string">"app"</span><span class="token tag">&gt;</span>
 
-  <span class="token comment">&lt;!-- Heading: communicates hierarchy --&gt;</span>
-  <span class="token tag">&lt;h2&gt;</span>Frontend Development<span class="token tag">&lt;/h2&gt;</span>
+  <span class="token tag">&lt;h1&gt;</span>My Tasks<span class="token tag">&lt;/h1&gt;</span>
+  
+  <span class="token tag">&lt;p&gt;</span>1 of 2 tasks completed<span class="token tag">&lt;/p&gt;</span>
 
-  <span class="token comment">&lt;!-- Paragraph: a block of descriptive text --&gt;</span>
-  <span class="token tag">&lt;p&gt;</span>Building the user interface of the web.<span class="token tag">&lt;/p&gt;</span>
+  <span class="token comment">&lt;!-- Form to add new tasks --&gt;</span>
+  <span class="token tag">&lt;form&gt;</span>
+    <span class="token tag">&lt;input</span> <span class="token attr">type</span>=<span class="token string">"text"</span> <span class="token attr">placeholder</span>=<span class="token string">"What needs to be done?"</span><span class="token tag">&gt;</span>
+    <span class="token tag">&lt;button</span> <span class="token attr">type</span>=<span class="token string">"button"</span><span class="token tag">&gt;</span>Add Task<span class="token tag">&lt;/button&gt;</span>
+  <span class="token tag">&lt;/form&gt;</span>
 
-  <span class="token comment">&lt;!-- Button: a semantic interactive element --&gt;</span>
-  <span class="token tag">&lt;button&gt;</span>Learn More<span class="token tag">&lt;/button&gt;</span>
+  <span class="token comment">&lt;!-- Unordered list for our tasks --&gt;</span>
+  <span class="token tag">&lt;ul&gt;</span>
+    <span class="token comment">&lt;!-- List items --&gt;</span>
+    <span class="token tag">&lt;li&gt;</span>
+      <span class="token tag">&lt;input</span> <span class="token attr">type</span>=<span class="token string">"checkbox"</span> <span class="token attr">checked</span><span class="token tag">&gt;</span>
+      <span class="token tag">&lt;span&gt;</span>Learn HTML structure<span class="token tag">&lt;/span&gt;</span>
+      <span class="token tag">&lt;button&gt;</span>Delete<span class="token tag">&lt;/button&gt;</span>
+    <span class="token tag">&lt;/li&gt;</span>
+    
+    <span class="token tag">&lt;li&gt;</span>
+      <span class="token tag">&lt;input</span> <span class="token attr">type</span>=<span class="token string">"checkbox"</span><span class="token tag">&gt;</span>
+      <span class="token tag">&lt;span&gt;</span>Add CSS styling<span class="token tag">&lt;/span&gt;</span>
+      <span class="token tag">&lt;button&gt;</span>Delete<span class="token tag">&lt;/button&gt;</span>
+    <span class="token tag">&lt;/li&gt;</span>
+  <span class="token tag">&lt;/ul&gt;</span>
 
-<span class="token tag">&lt;/div&gt;</span>
-
-<span class="token comment">&lt;!-- Notice: no colors, no layout,
-     no fonts. The browser applies its
-     own default styles to everything. --&gt;</span></code></pre>
+<span class="token tag">&lt;/div&gt;</span></code></pre>
       </div>
     </div>
 
@@ -132,15 +145,32 @@
       <hr style="border-color:#ccc; margin:0;">
 
       <!-- The exact component — pure HTML, browser defaults -->
-      <div>
-        <h2>Frontend Development</h2>
-        <p>Building the user interface of the web.</p>
-        <button>Learn More</button>
+      <div id="app">
+        <h1>My Tasks</h1>
+        <p>1 of 2 tasks completed</p>
+
+        <form>
+          <input type="text" placeholder="What needs to be done?">
+          <button type="button">Add Task</button>
+        </form>
+
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <span>Learn HTML structure</span>
+            <button>Delete</button>
+          </li>
+          <li>
+            <input type="checkbox">
+            <span>Add CSS styling</span>
+            <button>Delete</button>
+          </li>
+        </ul>
       </div>
 
-      <hr style="border-color:#eee; margin:0.5rem 0 0;">
+      <hr style="border-color:#eee; margin:2rem 0 0;">
       <p style="margin:0; font-size:0.75rem; color:#888; font-family:'Inter',sans-serif; line-height:1.6;">
-        The browser applies its own <strong>user-agent stylesheet</strong> — giving Times New Roman, blue links, and grey buttons. This is HTML's baseline appearance before any CSS exists.
+        The browser applies its own <strong>user-agent stylesheet</strong> — giving Times New Roman, blue links, standard checkboxes, and grey buttons. This is HTML's baseline appearance before any CSS exists.
       </p>
     </div>
   </div>

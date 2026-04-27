@@ -13,6 +13,7 @@
       --css-color: #264de4;
       --js-color: #f7df1e;
       --react-color: #61dafb;
+      --ts-color: #3178C6;
     }
 
     body {
@@ -21,104 +22,189 @@
       background-color: var(--bg-color);
       /* Mesh gradient background */
       background-image: 
-        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 40%),
-        radial-gradient(circle at 50% 80%, rgba(97, 218, 251, 0.1), transparent 50%);
+        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.12), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(97, 218, 251, 0.08), transparent 50%);
       color: var(--text-color);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
       text-align: center;
-      padding: 2rem;
+      padding: 4rem 2rem;
       overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      background: linear-gradient(to right, #60a5fa, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: titleFade 1s cubic-bezier(0.16, 1, 0.3, 1);
+    .hero-section {
+      max-width: 800px;
+      margin-bottom: 4rem;
+      animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) backwards;
     }
 
-    p.subtitle {
-      font-size: 1.25rem;
-      color: #94a3b8;
-      max-width: 600px;
-      margin-bottom: 4rem;
-      line-height: 1.6;
+    h1 {
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #60a5fa, #a78bfa, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .concept-box {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+      backdrop-filter: blur(10px);
+    }
+
+    .concept-box p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .concept-box strong {
+      color: #f8fafc;
+    }
+
+    .flow-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+    }
+
+    .flow-indicator span {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 99px;
+    }
+
+    .flow-indicator svg {
+      width: 20px;
+      height: 20px;
     }
 
     .nav-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
       width: 100%;
-      max-width: 1000px;
-      perspective: 1000px; /* For 3D effects */
+      max-width: 1200px;
+      perspective: 1000px;
       animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
     }
 
     .nav-card {
-      /* Glassmorphism */
       background: rgba(30, 41, 59, 0.6);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 1rem;
-      padding: 2.5rem 2rem;
+      border-radius: 1.25rem;
+      padding: 2rem;
       text-decoration: none;
       color: var(--text-color);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-      transform-style: preserve-3d;
+      text-align: left;
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
     }
 
-    /* Glow effect on hover */
     .nav-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
       opacity: 0;
       transition: opacity 0.3s;
     }
 
     .nav-card:hover {
-      transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
-      box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--hover-color), 0.2);
-      border-color: rgba(var(--hover-color), 0.5);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--hover-color), 0.15);
+      border-color: rgba(var(--hover-color), 0.4);
     }
     
     .nav-card:hover::before {
       opacity: 1;
     }
 
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
     .nav-card h2 {
       margin: 0;
       font-size: 1.75rem;
+      font-weight: 700;
     }
 
-    .nav-card p {
+    .nav-card p.desc {
+      margin: 0 0 1.5rem 0;
+      font-size: 1rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .whats-new {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .whats-new h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(var(--hover-color), 0.8);
+      margin: 0 0 0.75rem 0;
+    }
+
+    .whats-new ul {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      font-size: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .whats-new li {
+      font-size: 0.9rem;
       color: #cbd5e1;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .whats-new li::before {
+      content: '→';
+      color: rgba(var(--hover-color), 1);
     }
 
     .html { --hover-color: 227, 76, 38; }
     .css { --hover-color: 38, 77, 228; }
     .js { --hover-color: 247, 223, 30; }
     .react { --hover-color: 97, 218, 251; }
+    .ts { --hover-color: 49, 120, 198; }
 
     .badge {
       padding: 0.35rem 1rem;
@@ -130,52 +216,129 @@
     }
 
     .html .badge { background: rgba(227, 76, 38, 0.15); color: var(--html-color); }
-    .css .badge { background: rgba(38, 77, 228, 0.15); color: #60a5fa; /* lighter css color */ }
+    .css .badge { background: rgba(38, 77, 228, 0.15); color: #60a5fa; }
     .js .badge { background: rgba(247, 223, 30, 0.15); color: var(--js-color); }
     .react .badge { background: rgba(97, 218, 251, 0.15); color: var(--react-color); }
-
-    @keyframes titleFade {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    .ts .badge { background: rgba(49, 120, 198, 0.15); color: var(--ts-color); }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    
+    /* Responsive grid tweaks */
+    @media (min-width: 1024px) {
+      .nav-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .ts.nav-card {
+        grid-column: 2 / 3;
+      }
+    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>How the Web Actually Works</h1>
-  <p class="subtitle">A visual, interactive journey through the evolution of frontend web development. See how the exact same idea transforms across 4 stages of web technology.</p>
+
+  <div class="hero-section">
+    <h1>How the Web Actually Works</h1>
+    
+    <div class="concept-box">
+      <p>A visual, interactive journey through the evolution of frontend development. See exactly how a <strong>Todo List application</strong> transforms as it is rebuilt across 5 different stages of web technology—from raw structure to modern typed components.</p>
+    </div>
+  </div>
+
+  <div class="flow-indicator">
+    <span>Recommended Learning Flow</span>
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+  </div>
 
   <div class="nav-grid">
+    <!-- Stage 1 -->
     <a href="html/" class="nav-card html">
-      <span class="badge">Stage 1</span>
-      <h2>HTML</h2>
-      <p>Structure and content. The raw skeleton of the web.</p>
+      <div class="card-header">
+        <h2>HTML</h2>
+        <span class="badge">Stage 1</span>
+      </div>
+      <p class="desc">The raw skeleton of the web. Structure and content only, relying on the browser's default appearance.</p>
+      <div class="whats-new">
+        <h3>What this stage introduces</h3>
+        <ul>
+          <li>Semantic structure (forms, lists, buttons)</li>
+          <li>The Document Object Model (DOM)</li>
+          <li>No styling, no logic</li>
+        </ul>
+      </div>
     </a>
+
+    <!-- Stage 2 -->
     <a href="css/" class="nav-card css">
-      <span class="badge">Stage 2</span>
-      <h2>CSS</h2>
-      <p>Visual presentation. Glassmorphism, colors, and layout.</p>
+      <div class="card-header">
+        <h2>CSS</h2>
+        <span class="badge">Stage 2</span>
+      </div>
+      <p class="desc">Visual presentation. We take the exact same HTML and make it beautiful using a modern stylesheet.</p>
+      <div class="whats-new">
+        <h3>What this stage introduces</h3>
+        <ul>
+          <li>Layout (Flexbox, Grid)</li>
+          <li>Visual hierarchy and typography</li>
+          <li>Colors and interactive hover states</li>
+        </ul>
+      </div>
     </a>
+
+    <!-- Stage 3 -->
     <a href="js/" class="nav-card js">
-      <span class="badge">Stage 3</span>
-      <h2>JavaScript</h2>
-      <p>Behavior and logic. Bringing the static page to life.</p>
+      <div class="card-header">
+        <h2>JavaScript</h2>
+        <span class="badge">Stage 3</span>
+      </div>
+      <p class="desc">Behavior and logic. We write scripts to manipulate the DOM, finally making the Todo list interactive.</p>
+      <div class="whats-new">
+        <h3>What this stage introduces</h3>
+        <ul>
+          <li>Event handling (clicks, form submits)</li>
+          <li>Dynamic DOM manipulation</li>
+          <li>Manual state management</li>
+        </ul>
+      </div>
     </a>
+
+    <!-- Stage 4 -->
     <a href="react/" class="nav-card react">
-      <span class="badge">Stage 4</span>
-      <h2>React</h2>
-      <p>Components and global state. The modern UI powerhouse.</p>
+      <div class="card-header">
+        <h2>React</h2>
+        <span class="badge">Stage 4</span>
+      </div>
+      <p class="desc">Components and global state. The modern UI powerhouse that simplifies how we build complex interfaces.</p>
+      <div class="whats-new">
+        <h3>What this stage introduces</h3>
+        <ul>
+          <li>Reusable components</li>
+          <li>Declarative UI (JSX)</li>
+          <li>Reactive state (`useState`)</li>
+        </ul>
+      </div>
     </a>
-    <a href="typescript/" class="nav-card typescript" style="--hover-color: 49, 120, 198;">
-      <span class="badge" style="background: rgba(49, 120, 198, 0.15); color: #3178C6;">Stage 5</span>
-      <h2>TypeScript</h2>
-      <p>Static typing and compile-time safety.</p>
+
+    <!-- Stage 5 -->
+    <a href="typescript/" class="nav-card ts">
+      <div class="card-header">
+        <h2>TypeScript</h2>
+        <span class="badge">Stage 5</span>
+      </div>
+      <p class="desc">Static typing and compile-time safety. We prevent bugs before they happen by defining exact shapes for our data.</p>
+      <div class="whats-new">
+        <h3>What this stage introduces</h3>
+        <ul>
+          <li>Type interfaces and safe props</li>
+          <li>Compile-time error catching</li>
+          <li>Enhanced developer experience</li>
+        </ul>
+      </div>
     </a>
   </div>
+
 </body>
 </html>

@@ -1,56 +1,101 @@
-const actionBtn = document.getElementById('action-btn');
-const counterText = document.getElementById('counter-text');
+// Select elements from the DOM
+const form = document.getElementById('todo-form');
+const input = document.getElementById('todo-input');
+const list = document.getElementById('todo-list');
+const counter = document.getElementById('todo-counter');
+
+// Toggle JS button (for the X-Ray UI)
 const disableJsBtn = document.getElementById('disable-js-btn');
-
-// Code blocks to highlight
-const hlText = document.getElementById('highlight-text');
-const hlCounter = document.getElementById('highlight-counter');
-
-let count = 0;
 let jsEnabled = true;
 
-function handleCardClick() {
-  if (!jsEnabled) return;
-  
-  count++;
-  
-  if (count === 1) {
-    actionBtn.textContent = 'Clicked!';
-    counterText.style.display = 'block';
-  }
-  
-  counterText.textContent = `Clicked ${count} time${count !== 1 ? 's' : ''}`;
+// Initial state
+const defaultTasks = [
+  { text: 'Learn HTML structure', done: true },
+  { text: 'Add CSS styling', done: false }
+];
 
-  // Interactive Code Highlighting
-  hlText.style.backgroundColor = 'rgba(247, 223, 30, 0.3)';
-  hlCounter.style.backgroundColor = 'rgba(247, 223, 30, 0.3)';
-  
-  setTimeout(() => {
-    hlText.style.backgroundColor = 'transparent';
-    hlCounter.style.backgroundColor = 'transparent';
-  }, 300);
+// Function to render a task
+function createTaskElement(text, isDone) {
+  const li = document.createElement('li');
+  li.className = 'todo-item';
+  li.innerHTML = `
+    <label class="todo-label">
+      <input type="checkbox" class="todo-checkbox" ${isDone ? 'checked' : ''}>
+      <span class="todo-text">${text}</span>
+    </label>
+    <button type="button" class="btn btn-icon btn-delete" aria-label="Delete">×</button>
+  `;
+
+  // Add event listeners dynamically
+  const checkbox = li.querySelector('.todo-checkbox');
+  checkbox.addEventListener('change', () => {
+    if (jsEnabled) updateCounter();
+  });
+
+  const delBtn = li.querySelector('.btn-delete');
+  delBtn.addEventListener('click', () => {
+    if (!jsEnabled) return;
+    li.remove();
+    updateCounter();
+  });
+
+  return li;
 }
 
-function toggleJavascript() {
+// Imperative state syncing: manually read the DOM
+function updateCounter() {
+  if (!jsEnabled) return;
+  const total = list.querySelectorAll('.todo-item').length;
+  const done = list.querySelectorAll('.todo-checkbox:checked').length;
+  counter.textContent = `${done} of ${total} tasks completed`;
+}
+
+// Initialize list
+function initList() {
+  list.innerHTML = '';
+  defaultTasks.forEach(task => {
+    list.appendChild(createTaskElement(task.text, task.done));
+  });
+  updateCounter();
+}
+
+// Event Listener for form submission
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevent page refresh
+  if (!jsEnabled) return;
+  
+  if (!input.value.trim()) return;
+
+  // Imperatively build the DOM element
+  const li = createTaskElement(input.value, false);
+  list.appendChild(li);
+  
+  input.value = '';
+  updateCounter();
+});
+
+// X-Ray UI: Disable JS toggle
+disableJsBtn.addEventListener('click', () => {
   jsEnabled = !jsEnabled;
   
   if (jsEnabled) {
-    disableJsBtn.textContent = 'Disable JS';
-    disableJsBtn.style.backgroundColor = 'transparent';
-    actionBtn.style.opacity = '1';
-    actionBtn.style.cursor = 'pointer';
+    disableJsBtn.textContent = '⏸ Disable JS';
+    disableJsBtn.style.color = 'white';
+    disableJsBtn.style.borderColor = '#334155';
+    // Re-enable form
+    form.querySelector('button').style.opacity = '1';
+    form.querySelector('button').style.cursor = 'pointer';
+    updateCounter();
   } else {
-    disableJsBtn.textContent = 'Enable JS';
-    disableJsBtn.style.backgroundColor = '#ef4444';
+    disableJsBtn.textContent = '▶ Enable JS';
+    disableJsBtn.style.color = '#ef4444';
+    disableJsBtn.style.borderColor = '#ef4444';
     
-    actionBtn.textContent = 'Learn More';
-    counterText.style.display = 'none';
-    count = 0;
-    
-    actionBtn.style.opacity = '0.5';
-    actionBtn.style.cursor = 'not-allowed';
+    // Simulate what happens without JS: buttons do nothing, form refreshes page
+    form.querySelector('button').style.opacity = '0.5';
+    form.querySelector('button').style.cursor = 'not-allowed';
   }
-}
+});
 
-actionBtn.addEventListener('click', handleCardClick);
-disableJsBtn.addEventListener('click', toggleJavascript);
+// Start the app
+initList();

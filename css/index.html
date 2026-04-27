@@ -6,7 +6,7 @@
   <title>Stage 2: CSS — How the Web Works</title>
   <link rel="stylesheet" href="../xray.css">
   <link id="main-style" rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
   <style>
     .concepts-panel {
       padding: 1.5rem 2rem;
@@ -97,69 +97,97 @@
 
       <!-- CONCEPTS -->
       <div class="concepts-panel">
-        <p class="concepts-title">Core Concepts</p>
+        <p class="concepts-title">Core Concepts: Presentation</p>
         <ul class="concept-list">
           <li class="concept-item">
             <strong>The Cascade</strong>
             <span>CSS stands for <em>Cascading</em> Style Sheets. Rules flow from the top down, and more specific rules override general ones.</span>
           </li>
           <li class="concept-item">
-            <strong>Selectors &amp; Specificity</strong>
-            <span><code style="color:#ce9178">.card</code> targets a class. <code style="color:#ce9178">#id</code> is more specific. Inline styles win everything. The browser calculates a score to decide which rule wins.</span>
+            <strong>Layout & Flexbox</strong>
+            <span>Using <code style="color:#ce9178">display: flex</code>, we can align the input and button side-by-side, and perfectly center the task text with the checkbox.</span>
           </li>
           <li class="concept-item">
             <strong>The Box Model</strong>
-            <span>Every element is a rectangle: <strong>content → padding → border → margin</strong>. Layouts are built by controlling these four layers.</span>
+            <span>Every element is a rectangle: <strong>content → padding → border → margin</strong>. Notice how the input field and button now have breathing room.</span>
           </li>
           <li class="concept-item">
             <strong>Pseudo-classes &amp; States</strong>
-            <span><code style="color:#ce9178">:hover</code>, <code style="color:#ce9178">:focus</code>, <code style="color:#ce9178">:active</code> — CSS can respond to user interaction <em>without</em> any JavaScript.</span>
+            <span><code style="color:#ce9178">:hover</code>, <code style="color:#ce9178">:focus</code>, <code style="color:#ce9178">:checked</code> — CSS can respond to user interaction <em>without</em> any JavaScript (e.g. crossing out text when checked).</span>
           </li>
         </ul>
         <div class="insight-box">
-          <strong>Hit "Disable CSS"</strong> to see the page revert to raw HTML. That jarring shift <em>is</em> what CSS does — it separates visual presentation from content structure entirely. Try it.
+          <strong>Hit "Disable CSS"</strong> to see the page revert to Stage 1. That jarring shift <em>is</em> what CSS does — it turns a raw document into a beautiful user interface. But notice: clicking "Add Task" still does nothing.
         </div>
       </div>
 
       <!-- CODE -->
       <div class="code-section-label">Source Code — style.css</div>
       <div style="padding: 0 2rem 2rem; flex:1;">
-        <pre><code><span class="token comment">/* Glassmorphism — the visual layer */</span>
-<span class="token tag">.card</span> {
+        <pre><code><span class="token comment">/* Layout — aligning the input and button */</span>
+<span class="token tag">.todo-form</span> {
+  <span class="token attr">display</span>: <span class="token string">flex</span>;
+  <span class="token attr">gap</span>: <span class="token string">0.5rem</span>;
+  <span class="token attr">margin-bottom</span>: <span class="token string">1.5rem</span>;
+}
+
+<span class="token comment">/* Glassmorphism — the visual layer */</span>
+<span class="token tag">.todo-app</span> {
   <span class="token attr">background</span>: <span class="token string">rgba(30, 41, 59, 0.6)</span>;
-  <span class="token comment">/* frosted glass: blurs content behind */</span>
   <span class="token attr">backdrop-filter</span>: <span class="token string">blur(12px)</span>;
   <span class="token attr">border</span>: <span class="token string">1px solid rgba(255,255,255,0.05)</span>;
-  <span class="token attr">border-radius</span>: <span class="token string">1rem</span>;
-  <span class="token attr">padding</span>: <span class="token string">2.5rem</span>;
-  <span class="token attr">box-shadow</span>: <span class="token string">0 10px 25px rgba(0,0,0,0.5)</span>;
-  <span class="token comment">/* smooth transition — no JS needed */</span>
-  <span class="token attr">transition</span>: <span class="token string">transform 0.4s ease</span>;
+  <span class="token attr">border-radius</span>: <span class="token string">1.5rem</span>;
+  <span class="token attr">padding</span>: <span class="token string">2rem</span>;
+  <span class="token attr">box-shadow</span>: <span class="token string">0 25px 50px -12px rgba(0,0,0,0.5)</span>;
 }
 
-<span class="token comment">/* Pseudo-class: reacts to hover state */</span>
-<span class="token tag">.card:hover</span> {
-  <span class="token attr">transform</span>: <span class="token string">translateY(-10px)</span>;
+<span class="token comment">/* Interactive states */</span>
+<span class="token tag">.btn-primary:hover</span> {
+  <span class="token attr">background</span>: <span class="token string">#2563eb</span>;
+  <span class="token attr">transform</span>: <span class="token string">translateY(-1px)</span>;
 }
 
-<span class="token tag">.card-btn</span> {
-  <span class="token attr">background</span>: <span class="token string">#3b82f6</span>;
-  <span class="token attr">color</span>: <span class="token string">white</span>;
-  <span class="token attr">border</span>: <span class="token string">none</span>;
-  <span class="token attr">border-radius</span>: <span class="token string">0.5rem</span>;
-  <span class="token attr">padding</span>: <span class="token string">0.75rem 1.5rem</span>;
-  <span class="token attr">cursor</span>: <span class="token string">pointer</span>;
-  <span class="token attr">width</span>: <span class="token string">100%</span>;
+<span class="token comment">/* State styling based on DOM structure */</span>
+<span class="token tag">.todo-checkbox:checked + .todo-text</span> {
+  <span class="token attr">text-decoration</span>: <span class="token string">line-through</span>;
+  <span class="token attr">color</span>: <span class="token string">#64748b</span>;
 }</code></pre>
       </div>
     </div>
 
+    <!-- PREVIEW -->
     <div class="preview-panel themed-preview">
-      <div class="card">
-        <h2 class="card-title">Frontend Development</h2>
-        <p class="card-text">Building the user interface of the web.</p>
-        <button class="card-btn">Learn More</button>
+      
+      <div class="todo-app">
+        <div class="todo-header">
+          <h1 class="todo-title">My Tasks</h1>
+          <span class="todo-counter">1 of 2 tasks completed</span>
+        </div>
+
+        <form class="todo-form">
+          <input type="text" class="todo-input" placeholder="What needs to be done?">
+          <button type="button" class="btn btn-primary">Add Task</button>
+        </form>
+
+        <ul class="todo-list">
+          <li class="todo-item">
+            <label class="todo-label">
+              <input type="checkbox" class="todo-checkbox" checked>
+              <span class="todo-text">Learn HTML structure</span>
+            </label>
+            <button class="btn btn-icon btn-delete" aria-label="Delete">×</button>
+          </li>
+          
+          <li class="todo-item">
+            <label class="todo-label">
+              <input type="checkbox" class="todo-checkbox">
+              <span class="todo-text">Add CSS styling</span>
+            </label>
+            <button class="btn btn-icon btn-delete" aria-label="Delete">×</button>
+          </li>
+        </ul>
       </div>
+
     </div>
   </div>
 </body>
