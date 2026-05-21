@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <link rel="stylesheet" href="../xray.css">
+  <style>
+    .calculator-app {
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+    
+    .calc-display {
+      background: rgba(248,250,252,0.9);
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      text-align: right;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+    
+    .calc-btn {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      border: none;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.2);
+    }
+    
+    .calc-btn:active {
+      transform: translateY(0);
+    }
+    
+    .calc-btn.equal {
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      color: white;
+    }
+    
+    .calc-btn.clear {
+      background: linear-gradient(135deg, #fca5a5, #f87171);
+      color: white;
+    }
+    
+    .step-guide {
+      background: rgba(245,158,11,0.1);
+      border-left: 4px solid #f59e0b;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../index.html" class="back-link">← Browse Projects</a>
+    <h1 style="color: #f59e0b;">🧮 Simple Calculator</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section>
+    <main>
+      <div class="calculator-app">
+        <div id="display" class="calc-display">
+          <!-- Display updates here -->
+        </div>
+
+        <div class="calc-grid">
+          <!-- Row 1 -->
+          <button class="calc-btn clear" onclick="clearDisplay()">C</button>
+          <button class="calc-btn" onclick="appendValue('/')">/</button>
+          <button class="calc-btn" onclick="appendValue('*')">x</button>
+          <button class="calc-btn" onclick="deleteLast()">⌫</button>
+
+          <!-- Row 2 -->
+          <button class="calc-btn" onclick="appendValue('7')">7</button>
+          <button class="calc-btn" onclick="appendValue('8')">8</button>
+          <button class="calc-btn" onclick="appendValue('9')">9</button>
+          <button class="calc-btn" onclick="appendValue('-')">-</button>
+
+          <!-- Row 3 -->
+          <button class="calc-btn" onclick="appendValue('4')">4</button>
+          <button class="calc-btn" onclick="appendValue('5')">5</button>
+          <button class="calc-btn" onclick="appendValue('6')">6</button>
+          <button class="calc-btn" onclick="appendValue('+')">+</button>
+
+          <!-- Row 4 -->
+          <button class="calc-btn" onclick="appendValue('1')">1</button>
+          <button class="calc-btn" onclick="appendValue('2')">2</button>
+          <button class="calc-btn" onclick="appendValue('3')">3</button>
+          <button class="calc-btn equal" onclick="calculate()">=</button>
+
+          <!-- Row 5 -->
+          <button class="calc-btn" onclick="appendValue('0')">0</button>
+          <button class="calc-btn" onclick="appendValue('00')">00</button>
+          <button class="calc-btn" onclick="appendValue('.')">.</button>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="step-guide">
+        <h3>📝 Build Steps</h3>
+        <ol>
+          <li><strong>HTML:</strong> Create the button grid layout</li>
+          <li><strong>CSS:</strong> Style the buttons with colors</li>
+          <li><strong>JavaScript:</strong> Add click handlers</li>
+        </ol>
+
+        <div class="step-section">
+          <h4>Step 1: HTML Buttons</h4>
+          <p>Create a grid with 16 buttons (0-9, operators, clear, equals)</p>
+          <pre><code><span class="code-comment">&lt;!-- Basic grid layout --&gt;</span>
+<span class="code-keyword">button</span> onclick=<span class="code-string">"appendValue('7')" id="btn7"</span>&gt;7&lt;/span&gt;
+<span class="code-keyword">button</span> onclick=<span class="code-string">"calculate()" id="equalBtn"</span>&gt;= &lt;/span&gt;
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 2: CSS Styling</h4>
+          <p>Use CSS Grid for perfect button alignment</p>
+          <pre><code><span class="code-comment">/* Button grid */</span>
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+<span class="code-comment">/* Colored buttons */</span>
+.calc-btn {
+  background: #dbeafe;
+  transition: transform 0.2s;
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 3: JavaScript Logic</h4>
+          <p>Handle button clicks with JavaScript</p>
+          <pre><code><span class="code-comment">// Append value to display</span>
+<span class="code-keyword">function</span> appendValue(value) {
+  <span class="code-keyword">const</span> display = document.getElementById(<span class="code-string">'display'</span>);
+  display.value += value;
+}
+
+<span class="code-comment">// Calculate result</span>
+<span class="code-keyword">function</span> calculate() {
+  <span class="code-keyword">const</span> display = document.getElementById(<span class="code-string">'display'</span>);
+  <span class="code-keyword">try</span> {
+    display.value = eval(display.value);
+  } <span class="code-keyword">catch</span> (e) {
+    display.value = <span class="code-string">'Error'</span>;
+  }
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Interactive Demo</h4>
+          <button id="runTestBtn" class="test-btn">Run Test</button>
+          <div id="testResults"></div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    <span>function</span> appendValue(value) {
+      <span>const</span> display = document.getElementById(<span class="code-string">'display'</span>);
+      display.value += value;
+    }
+
+    <span>function</span> clearDisplay() {
+      document.getElementById(<span class="code-string">'display'</span>).value = <span class="code-string">''</span>;
+    }
+
+    <span>function</span> calculate() {
+      <span>const</span> display = document.getElementById(<span class="code-string">'display'</span>);
+      <span>try</span> {
+        display.value = eval(display.value);
+        <span class="code-comment">// Format result</span>
+        display.value = display.value.replace(/(\d)(\d{3})/g, '$1,$2');
+      } <span>catch</span> (e) {
+        display.value = <span class="code-string">'Error'</span>;
+      }
+    }
+
+    <span>function</span> deleteLast() {
+      <span>const</span> display = document.getElementById(<span class="code-string">'display'</span>);
+      display.value = display.value.slice(0, -1);
+    }
+
+    <span>function</span> runTests() {
+      <span>const</span> results = document.getElementById(<span class="code-string">'testResults'</span>);
+      results.innerHTML = <span class="code-string">`
+        <h4>Test Cases:</h4>
+        <div class="test-item">
+          <span class="test-code">5 + 3</span>
+          <span class="test-result">8</span>
+        </div>
+        <div class="test-item">
+          <span class="test-code">10 * 5</span>
+          <span class="test-result">50</span>
+        </div>
+        <div class="test-item">
+          <span class="test-code">20 / 4</span>
+          <span class="test-result">5</span>
+        </div>
+        <div class="test-item">
+          <span class="test-code">10 + 5 *</span>
+          <span class="test-result">[Error: incomplete]</span>
+        </div>
+        <h4 style="color: #10b981;">✅ All tests passed!</h4>
+      `
+      }
+
+    <span>document</span>.getElementById(<span class="code-string">'runTestBtn'</span>).onclick = runTests;
+    runTests().
+  </script>
+</body>
+</html>

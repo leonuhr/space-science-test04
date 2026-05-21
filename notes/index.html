@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes App</title>
+  <link rel="stylesheet" href="../xray.css">
+  <style>
+    .notes-app {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    
+    .notes-toolbar {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .notes-btn {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .notes-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .notes-input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      min-height: 150px;
+      font-family: 'Fira Code', monospace;
+    }
+    
+    .notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .note-item {
+      background: linear-gradient(145deg, #dbeafe, #bfdbfe);
+      border: 2px solid #bfdbfe;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .note-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 8px 25px rgba(59,130,246,0.15);
+    }
+    
+    .note-content {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+    
+    .note-meta {
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .note-delete {
+      background: #fca5a5;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #64748b;
+    }
+    
+    .empty-icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    
+    .step-guide {
+      background: rgba(245,158,11,0.1);
+      border-left: 4px solid #f59e0b;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../index.html" class="back-link">← Browse Projects</a>
+    <h1 style="color: #f59e0b;">📝 Notes App</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section>
+    <main>
+      <div class="notes-app">
+        <div id="add-note-section">
+          <h3> Add New Note</h3>
+          <textarea id="note-input" class="notes-input" placeholder="Type your note here..."></textarea>
+          <div class="notes-toolbar">
+            <button id="addNoteBtn" class="notes-btn">Add Note</button>
+            <button id="clearBtn" class="notes-btn" style="background:#f43f5e;">Clear All</button>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Your Notes</h3>
+        <div id="notes-list" class="notes-list">
+          <!-- Notes will be rendered here -->
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <span class="empty-icon">📔</span>
+          <p>No notes yet!</p>
+          <p>Add your first note above.</p>
+        </div>
+      </div>
+
+      <div class="step-guide">
+        <h3>📝 Build Steps</h3>
+        <ol>
+          <li><strong>HTML:</strong> Create textarea for input and list container</li>
+          <li><strong>JavaScript:</strong> Use localStorage to save notes</li>
+          <li><strong>React:</strong> Convert to component with useEffect</li>
+        </ol>
+
+        <div class="step-section">
+          <h4>Step 1: HTML Interface</h4>
+          <p>Create textarea for notes and a list container</p>
+          <pre><code><span class="code-comment">&lt;textarea</span> id=<span class="code-string">'note-input'</span>&gt;&lt;/textarea&gt;
+<span class="code-comment">&lt;div</span> id=<span class="code-string">'notes-list'</span>&gt;&lt;/div&gt;
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 2: LocalStorage Setup</h4>
+          <p>Save notes to localStorage as JSON array</p>
+          <pre><code>notes = (
+  <span>document</span>.getElementById(<span class="code-string">'notes-list'</span>).innerHTML || <span class="code-string">[]</span>
+);
+localStorage.setItem(<span class="code-string">'my-notes'</span>, JSON.stringify(notes));
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 3: Save Notes</h4>
+          <p>Handle adding new notes with save function</p>
+          <pre><code><span>function</span> addNote() {
+  <span>const</span> text = <span>document</span>.getElementById(<span class="code-string">'note-input'</span>).value.trim();
+  
+  <span>if</span> (text) {
+    <span>const</span> notes = JSON.parse(
+      localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+    );
+    
+    notes.push({
+      text: text,
+      id: Date.now()
+    });
+    
+    localStorage.setItem(<span class="code-string">'my-notes'</span>, JSON.stringify(notes));
+    renderNotes();
+  }
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 4: Render Notes</h4>
+          <p>Display notes from localStorage</p>
+          <pre><code><span>function</span> renderNotes() {
+  <span>const</span> notes = JSON.parse(
+    localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+  );
+  
+  <span>const</span> container = <span>document</span>.getElementById(<span class="code-string">'notes-list'</span>);
+  <span>if</span> (notes.length === 0) {
+    container.innerHTML = <span class="code-string">`
+      &lt;div class="empty-state"&gt;
+        &lt;p&gt;No notes yet!&lt;/p&gt;
+      &lt;/div&gt;
+    `;
+  } <span>else</span> {
+    container.innerHTML = notes.map(note =&gt; (
+      <span class="code-string">&lt;div&gt;{note.text}&lt;/div&gt;</span>
+    )).join(<span class="code-string">' '</span>);
+  }
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 5: Delete Notes</h4>
+          <p>Add delete functionality and error handling</p>
+          <pre><code><span>function</span> deleteNote(id) {
+  <span>const</span> notes = JSON.parse(
+    localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+  ).filter(note =&gt; note.id !== id);
+  
+  localStorage.setItem(<span class="code-string">'my-notes'</span>, JSON.stringify(notes));
+  renderNotes();
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>React Version</h4>
+          <p>Convert to React component with dependencies</p>
+          <pre><code><span>import</span> React, { useState, useEffect } <span>from</span> <span class="code-string">'react'</span>;
+<span>import</span> { v4 } <span>from</span> <span class="code-string">'uuid'</span>;
+
+<span>const</span> NotesApp = () => {
+  <span>const</span> [notes, setNotes] = useState(() =&gt; {
+    <span>return</span> JSON.parse(
+      localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+    );
+  });
+  
+  <span>useEffect</span>(() => {}, [notes]);
+  
+  <span>const</span> addNote = (text) =&gt; {
+    <span>setNotes</span>(prev =&gt; [
+      ...prev,
+      { text: text, id: v4() }
+    ]);
+  };
+  
+  <span>const</span> deleteNote = (id) =&gt; {
+    <span>setNotes</span>(prev =&gt; prev.filter(note =&gt; note.id !== id));
+  };
+  
+  <span>return</span> (
+    &lt;<span class="code-string">div</span>&gt;
+      &lt;button onClick={() =&gt; addNote(...)}&gt;Add&lt;/button&gt;
+      &lt;ul&gt;{notes.map(note =&gt; ...)}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Suggested Enhancements</h4>
+          <ul>
+            <li>Add note timestamps</li>
+            <li>Search and filter notes</li>
+            <li>Import/Export notes</li>
+            <li>Pin important notes</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    <span>function</span> addNote() {
+      <span>const</span> text = <span>document</span>.getElementById(<span class="code-string">'note-input'</span>).value.trim();
+      <span>const</span> notes = JSON.parse(
+        localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+      ).map(note =&gt; ({...note, createdAt: new Date().toISOString()}));
+      
+      <span>if</span> (text) {
+        <span>const</span> newNotes = [...notes, { text, createdAt: new Date().toISOString(), id: Date.now() }];
+        localStorage.setItem(<span class="code-string">'my-notes'</span>, JSON.stringify(newNotes));
+        renderNotes();
+        <span>document</span>.getElementById(<span class="code-string">'note-input'</span>).value = <span class="code-string">''</span>;
+      }
+    }
+
+    <span>function</span> renderNotes() {
+      <span>const</span> notes = JSON.parse(
+        localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+      );
+      
+      <span>const</span> list = document.getElementById(<span class="code-string">'notes-list'</span>);
+      <span>if</span> (notes.length === 0) {
+        list.innerHTML = <span class="code-string">&lt;div class="empty-state"&gt;...</span&gt;
+      } <span>else</span> {
+        list.innerHTML = notes.map(note =&gt; (
+          <span class="code-string">&lt;div&gt;
+            &lt;h4&gt;{note.text}&lt;/h4&gt;
+            &lt;span&gt;{new Date(note.createdAt).toLocaleDateString()} &lt;/span&gt;
+            &lt;button&gt;Delete&lt;/button&gt;
+          &lt;/div&gt;
+        )).join(<span class="code-string">' '</span>);
+      }
+    }
+
+    <span>function</span> deleteNote(id) {
+      <span>const</span> notes = JSON.parse(
+        localStorage.getItem(<span class="code-string">'my-notes'</span>) || <span class="code-string">[]</span>
+      ).filter(note =&gt; note.id !== id);
+      
+      localStorage.setItem(<span class="code-string">'my-notes'</span>, JSON.stringify(notes));
+      renderNotes();
+    }
+
+    <span>document</span>.getElementById(<span class="code-string">'addNoteBtn'</span>).onclick = addNote;
+    <span>document</span>.addEventListener(<span class="code-string">'keydown'</span>, e =&gt; {
+      <span>if</span> (e.key === <span class="code-string">'Enter'</span> &amp;&amp; <span>document</span>.getElementById(<span class="code-string">'note-input'</span>).value) {
+        <span>addNote</span>();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn & Theory - Web Dev Learning Path</title>
+  <link rel="stylesheet" href="../xray.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Learning Path Styles -->
+  <style>
+    .learn-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(145deg, #0f172a, #1e293b);
+      color: #f1f5f9;
+    }
+    
+    .learnoy-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .learning-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 1rem 0;
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .learning-subtitle {
+      font-size: 1.3rem;
+      color: #94a3b8;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    /* Learning Path Navigation */
+    .learning-path {
+      position: relative;
+      padding: 4rem 2rem;
+      background: #0f172a;
+      overflow: hidden;
+    }
+    
+    .learning-path::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #10b981, #3b82f6);
+      z-index: 1;
+    }
+    
+    .stage-card {
+      position: relative;
+      margin: 2rem auto;
+      max-width: 600px;
+      background: linear-gradient(145deg, rgba(22,163,74,0.1), rgba(59,130,246,0.1));
+      border: 2px solid rgba(16,185,129,0.3);
+      border-radius: 1rem;
+      padding: 2rem;
+      z-index: 2;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .stage-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(16,185,129,0.2);
+    }
+    
+    .stage-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #10b981;
+      margin: 0 0 1rem 0;
+    }
+    
+    .stage-desc {
+      font-size: 1rem;
+      color: #cbd5e1;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    .theory-section {
+      background: rgba(15,23,42,0.8);
+      border-left: 4px solid #10b981;
+      border-radius: 0.5rem;
+      padding: 1.5rem 1.5rem 0 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .theory-section h4 {
+      color: #10b981;
+      font-size: 1rem;
+      margin: 0 0 0.75rem 0;
+    }
+    
+    .theory-section p, .theory-section ul {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    
+    .theory-section ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    
+    .code-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #64748b;
+      padding: 0.75rem 1rem;
+    }
+    
+    .code-block {
+      background: rgba(22,163,74,0.1);
+      border: 1px solid rgba(22,163,74,0.3);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin-top: 0;
+      line-height: 1.6;
+    }
+    
+    .code-keyword { color: #10b981; font-weight: 600; }
+    .code-string { color: #3b82f6; }
+    .code-comment { color: #64748b; font-style: italic; }
+    .code-function { color: #f97316; }
+    .code-type { color: #a3e635; font-style: italic; }
+    
+    .exercise-section {
+      background: rgba(59,130,246,0.1);
+      border-left: 4px solid #3b82f6;
+      border-radius: 0 0.5rem 0.5rem 0;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    
+    .exercise-title {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin: 0 0 0.75rem 0;
+      font-weight: 600;
+    }
+    
+    .exercise-desc {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .copy-btn {
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.75rem;
+      transition: transform 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+    }
+    
+    .feedback {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(22,163,74,0.1);
+      border-left: 3px solid #10b981;
+      border-radius: 0.3rem;
+      font-size: 0.85rem;
+      color: #86efac;
+      display: none;
+    }
+    
+    .stage-card .exercise-section + .feedback {
+      display: block;
+    }
+    
+    .stage-card .exercise-section + .feedback strong {
+      color: #10b981;
+    }
+    
+    /* Tips Section */
+    .tips-section {
+      padding: 3rem 2rem;
+      background: #1e293b;
+    }
+    
+    .tips-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .tip-card {
+      background: linear-gradient(145deg, rgba(120,80,255,0.1), rgba(236,72,153,0.1));
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .tip-card:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 8px 30px rgba(139,92,246,0.2);
+    }
+    
+    .tip-title {
+      font-size: 1.3rem;
+      color: #e9d5ff;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .tip-desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../" class="back-link">← Back to Home</a>
+    <h1 style="color: #10b981;">🎓 Learn & Theory</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section class="learn-section">
+    <div class="learnoy-header">
+      <h2 class="learning-title">Your Learning Journey</h2>
+      <p class="learning-subtitle">
+        Follow this path at your own pace. Each stage builds on the previous, 
+        with theory, examples, and hands-on exercises to ensure you really understand.
+      </p>
+    </div>
+  </section>
+
+  <section class="learning-path">
+    <!-- L1: HTML Fundamentals -->
+    <div class="stage-card">
+      <div class="stage-title">
+        <span>💾</span> L1: Understanding HTML Structure
+      </div>
+      <p class="stage-desc">
+        Learn what HTML is, how it structures content, and why semantic HTML matters. We'll build
+        a simple page and understand how browsers render it.
+      </p>
+
+      <div class="theory-section">
+        <h4>Core Concepts</h4>
+        <p>
+          HTML (HyperText Markup Language) provides the <strong>structure</strong> and <strong>content</strong> of web pages.
+          Think of it as the skeleton of your application.
+        </p>
+        <ul>
+          <li><strong>Tags:</strong> Elements that mark up content (like <code>&lt;h1&gt;</code>, <code>&lt;button&gt;</code>)</li>
+          <li><strong>Elements:</strong> Opening tag + content + closing tag (e.g., <code>&lt;p&gt;Hello&lt;/p&gt;</code>)</li>
+          <li><strong>Semantic HTML:</strong> Using elements that convey their <em>meaning</em> (like <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>)</li>
+        </ul>
+        <p>
+          HTML alone gives us structure but no styling or interactivity. We need CSS for appearance and JavaScript for behavior.
+        </p>
+      </div>
+
+      <div style="display: grid; gap:1rem; margin-top: 1rem;">
+        <div class="code-section-label">Theory → Code Example</div>
+        <div class="code-block">
+<span class="code-comment">&lt;!-- Simple webpage structure --&gt;</span>
+<span class="code-keyword">&lt;!DOCTYPE html&gt;</span>
+<span class="code-keyword">&lt;html&gt;</span>
+  <span class="code-keyword">&lt;head&gt;</span>
+    <span class="code-keyword">&lt;meta</span> <span class="code-attr">charset</span>=<span class="code-string">"UTF-8"</span><span class="code-keyword">&gt;&lt;/meta&gt;</span>
+    <span class="code-keyword">&lt;title&gt;</span>My First Page<span class="code-keyword">&lt;/title&gt;</span>
+  <span class="code-keyword">&lt;/head&gt;</span>
+  <span class="code-keyword">&lt;body&gt;</span>
+    <span class="code-keyword">&lt;h1&gt;</span>Welcome<span class="code-keyword">&lt;/h1&gt;</span>
+    <span class="code-keyword">&lt;p&gt;</span>This is my first element.<span class="code-keyword">&lt;/p&gt;</span>
+    <span class="code-keyword">&lt;ul&gt;</span>
+      <span class="code-keyword">&lt;li&gt;</span>Item 1<span class="code-keyword">&lt;/li&gt;</span>
+      <span class="code-keyword">&lt;li&gt;</span>Item 2<span class="code-keyword">&lt;/li&gt;</span>
+    <span class="code-keyword">&lt;/ul&gt;</span>
+  <span class="code-keyword">&lt;/body&gt;</span>
+<span class="code-keyword">&lt;/html&gt;</span>
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <h4 class="exercise-title">Exercise 1.1: Modify This Code</h4>
+        <p class="exercise-desc">
+          Try changing the <code>&lt;h1&gt;</code> text and adding your own content.
+          See how the browser displays your changes.
+        </p>
+        <button class="copy-btn" onclick="copyCode(this)">Copy to Code Editor</button>
+        <div class="feedback">
+          <strong>💡 Tip:</strong> HTML is case-insensitive, but conventions use lowercase. 
+          Always close your tags!
+        </div>
+      </div>
+    </div>
+
+    <!-- L2: CSS Fundamentals -->
+    <div class="stage-card">
+      <div class="stage-title">
+        <span>🎨</span> L2: Understanding CSS Styling
+      </div>
+      <p class="stage-desc">
+        Learn how CSS makes our HTML look beautiful. We'll explore selectors, properties, 
+        and the box model.
+      </p>
+
+      <div class="theory-section">
+        <h4>Core Concepts</h4>
+        <p>
+          CSS (Cascading Style Sheets) controls the <strong>appearance</strong> of web content.
+          Without CSS, the web would look like documents from 1995.
+        </p>
+        <ul>
+          <li><strong>Selectors:</strong> Choose which elements to style (e.g., <code>h1</code>, <code>.class</code>, <code>#id</code>)</li>
+          <li><strong>Properties & Values:</strong> Define styles (e.g., <code>color: red</code>, <code>margin: 20px</code>)</li>
+          <li><strong>Box Model:</strong> Content → Padding → Border → Margin</li>
+        </ul>
+        <p>
+          CSS separates <em>concerns</em>: structure (HTML), style (CSS), behavior (JavaScript).
+        </p>
+      </div>
+
+      <div style="display: grid; gap:1rem; margin-top: 1rem;">
+        <div class="code-section-label">Theory → Code Example</div>
+        <div class="code-block">
+<span class="code-comment">/* Basic CSS styling */</span>
+<span class="code-keyword">h1</span> {
+  <span class="code-property">color</span>: <span class="code-string">#e34c26</span>;
+  <span class="code-property">text-align</span>: <span class="code-string">center</span>;
+  <span class="code-property">margin-bottom</span>: <span class="code-string">1rem</span>;
+}
+
+<span class="code-keyword">.container</span> {
+  <span class="code-property">background</span>: <span class="code-string">linear-gradient(135deg, #1e293b, #0f172a)</span>;
+  <span class="code-property">border-radius</span>: <span class="code-string">8px</span>;
+  <span class="code-property">padding</span>: <span class="code-string">2rem</span>;
+}
+
+<span class="code-keyword">#primary-button</span> {
+  <span class="code-property">background</span>: <span class="code-string">#10b981</span>;
+  <span class="code-property">color</span>: <span class="code-string">white</span>;
+  <span class="code-property">border</span>: <span class="code-string">none</span>;
+  <span class="code-property">padding</span>: <span class="code-string">0.75rem 1.5rem</span>;
+  <span class="code-property">border-radius</span>: <span class="code-string">0.5rem</span>;
+}
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <h4 class="exercise-title">Exercise 2.1: Style This Element</h4>
+        <p class="exercise-desc">
+          Select <code>h1</code> and change its <code>color</code> and <code>text-align</code>.
+          Experiment with different font sizes.
+        </p>
+        <button class="copy-btn" onclick="copyCode(this)">Copy CSS to Editor</button>
+        <div class="feedback">
+          <strong>💡 Tip:</strong> CSS properties are case-insensitive, but convention uses lowercase.
+          Use browser DevTools (F12) to inspect and live-edit styles.
+        </div>
+      </div>
+    </div>
+
+    <!-- L3: JavaScript Fundamentals -->
+    <div class="stage-card">
+      <div class="stage-title">
+        <span>⚡</span> L3: Understanding JavaScript Logic
+      </div>
+      <p class="stage-desc">
+        JavaScript brings your web pages to life with interactivity. We'll explore 
+        variables, functions, DOM manipulation, and event handling.
+      </p>
+
+      <div class="theory-section">
+        <h4>Core Concepts</h4>
+        <p>
+          JavaScript is the language of interactivity on the web. Without it, buttons don't work,
+          pages don't respond, and apps feel "dead."
+        </p>
+        <ul>
+          <li><strong>Variables:</strong> Store data (<code>let</code>, <code>const</code>)</li>
+          <li><strong>Functions:</strong> Reusable blocks of code</li>
+          <li><strong>DOM Manipulation:</strong> Access and modify HTML elements</li>
+          <li><strong>Event Handling:</strong> Respond to user actions (clicks, input)</li>
+        </ul>
+        <p>
+          JavaScript runs in the <strong>browser</strong>, making the DOM interactive.
+        </p>
+      </div>
+
+      <div style="display: grid; gap:1rem; margin-top: 1rem;">
+        <div class="code-section-label">Theory → Code Example</div>
+        <div class="code-block">
+<span class="code-comment">// Add a task button click handler</span>
+<span class="code-keyword">const</span> addButton = document.querySelector(<span class="code-string">'#add-btn'</span>);
+
+addButton.<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-comment">// Get input value</span>
+  <span class="code-keyword">const</span> input = document.querySelector(<span class="code-string">'#task-input'</span>).value;
+  
+  <span class="code-comment">// Validate input</span>
+  <span class="code-keyword">if</span> (input.trim() === <span class="code-string">''</span>) {
+    <span class="code-comment">// Do nothing</span>
+    <span class="code-keyword">return</span>;
+  }
+  
+  <span class="code-comment">// Create new list item</span>
+  <span class="code-keyword">const</span> li = document.createElement(<span class="code-string">'li'</span>);
+  li.innerHTML = <span class="code-string">&lt;span&gt;${input}&lt;/span&gt;</span>;
+  
+  <span class="code-comment">// Add to list</span>
+  document.querySelector(<span class="code-string">'ul'</span>).appendChild(li);
+  
+  <span class="code-comment">// Clear input</span>
+  document.querySelector(<span class="code-string">'#task-input'</span>).value = <span class="code-string">''</span>;
+});
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <h4 class="exercise-title">Exercise 3.1: Make Buttons Work</h4>
+        <p class="exercise-desc">
+          Add an <code>addEventListener</code> to a button that logs a message to the console
+          when clicked. See how the page responds.
+        </p>
+        <button class="copy-btn" onclick="copyCode(this)">Copy JS to Console</button>
+        <div class="feedback">
+          <strong>💡 Tip:</strong> Use <code>console.log()</code> to see what's happening in the browser.
+          Common errors: forgetting <code>querySelector</code>, wrong selector syntax.
+        </div>
+      </div>
+    </div>
+
+    <!-- L4: React Fundamentals -->
+    <div class="stage-card">
+      <div class="stage-title">
+        <span>⚛️</span> L4: Understanding React Components
+      </div>
+      <p class="stage-desc">
+        React simplifies complex UIs with a component-based architecture. Learn about
+        declarative UI, props, and state management.
+      </p>
+
+      <div class="theory-section">
+        <h4>Core Concepts</h4>
+        <p>
+          React is a JavaScript library for building user interfaces. It uses JSX to write
+          HTML-like syntax in JavaScript, emphasizing declarative programming over imperative.
+        </p>
+        <ul>
+          <li><strong>Components:</strong> Reusable UI building blocks</li>
+          <li><strong>Props:</strong> Read-only data passed to components</li>
+          <li><strong>State:</strong> Mutable data managed by React</li>
+          <li><strong>Declarative UI:</strong> Describe what should appear, not how to build it</li>
+        </ul>
+        <p>
+          React manages complexity by breaking UIs into manageable components.
+        </p>
+      </div>
+
+      <div style="display: grid; gap:1rem; margin-top: 1rem;">
+        <div class="code-section-label">Theory → Code Example</div>
+        <div class="code-block">
+<span class="code-comment">// Simple React component</span>
+<span class="code-keyword">import</span> React, { useState } <span class="code-keyword">from</span> <span class="code-string">'react'</span>;
+
+<span class="code-keyword">const</span> TodoItem = ({ text, completed }) => {
+  <span class="code-comment">// Destructure props</span>
+  <span class="code-keyword">const</span> { text, completed } = props;
+
+  <span class="code-comment">// Track completion state</span>
+  <span class="code-keyword">const</span> [isDone, setIsDone] = useState(completed);
+
+  <span class="code-comment">// Handle toggle</span>
+  <span class="code-keyword">const</span> toggle = () => {
+    setIsDone(!isDone);
+  };
+
+  <span class="code-comment">// Return JSX</span>
+  <span class="code-keyword">return</span> (
+    &lt;<span class="code-string">div</span> style={styles.item}&gt;
+      &lt;<span class="code-string">input</span> type=<span class="code-string">checkbox</span> checked={isDone} onChange={toggle} /&gt;
+      &lt;<span class="code-string">span</span> style={{ textDecoration: isDone ? 'line-through' : 'none' }}&gt;
+        {text}
+      &lt;/<span class="code-string">span</span>&gt;
+      &lt;<span class="code-string">button</span> onClick={() => setIsDone(true)}&gt;
+        Delete
+      &lt;/<span class="code-string">button</span>&gt;
+    &lt;/<span class="code-string">div</span>&gt;
+  );
+};
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <h4 class="exercise-title">Exercise 4.1: Build a Component</h4>
+        <p class="exercise-desc">
+          Create a reusable <code>Greeting</code> component that accepts a <code>name</code> prop
+          and displays <code>Hello, {name}!</code>.
+        </p>
+        <button class="copy-btn" onclick="copyCode(this)">Copy JSX to File</button>
+        <div class="feedback">
+          <strong>💡 Tip:</strong> Start with a simple component and add features incrementally.
+          React's dev tools help inspect component state and props.
+        </div>
+      </div>
+    </div>
+
+    <!-- L5: TypeScript Fundamentals -->
+    <div class="stage-card">
+      <div class="stage-title">
+        <span>💙</span> L5: Understanding TypeScript Types
+      </div>
+      <p class="stage-desc">
+        TypeScript adds type safety to JavaScript. We'll explore interfaces, types,
+        and how they prevent bugs before runtime.
+      </p>
+
+      <div class="theory-section">
+        <h4>Core Concepts</h4>
+        <p>
+          TypeScript is JavaScript with syntax for types. It catches mistakes at <em>compile time</em>
+          rather than runtime, improving reliability and developer experience.
+        </p>
+        <ul>
+          <li><strong>Interfaces:</strong> Define shapes for objects and functions</li>
+          <li><strong>Types:</strong> Fundamental building blocks (string, number, boolean)</li>
+          <li><strong>Generics:</strong> Create reusable components with type parameters</li>
+          <li><strong>Type Safety:</strong> Catch errors before they reach production</li>
+        </ul>
+        <p>
+          TypeScript scales better with large codebases. It's becoming standard for modern development.
+        </p>
+      </div>
+
+      <div style="display: grid; gap:1rem; margin-top: 1rem;">
+        <div class="code-section-label">Theory → Code Example</div>
+        <div class="code-block">
+<span class="code-comment">// Define interface for TodoItem</span>
+<span class="code-keyword">interface</span> TodoItem {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+<span class="code-comment">// Function with typed parameters</span>
+<span class="code-keyword">const</span> createItem = (item: TodoItem): TodoItem => {
+  <span class="code-keyword">return</span> { ...item };
+};
+
+<span class="code-comment">// Generic component</span>
+<span class="code-keyword">interface</span> GreetingProps {
+  name: string;
+  greet?: <span class="code-type">(text: string) =&gt; string;</span>;
+}
+
+<span class="code-keyword">const</span> Greeting = ({ name, greet }: GreetingProps) => {
+  <span class="code-keyword">const</span> text = greet ? greet(name) : <span class="code-string">'Hello, ' + name + '!'</span>;
+  <span class="code-keyword">return</span> <span class="code-string">&lt;div&gt;{text}&lt;/div&gt;</span>;
+};
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <h4 class="exercise-title">Exercise 5.1: Add Types</h4>
+        <p class="exercise-desc">
+          Add type definitions to a function that accepts a <code>name</code> (string)
+          and returns <code>Greeting</code> (string). See TypeScript errors resolved.
+        </p>
+        <button class="copy-btn" onclick="copyCode(this)">Copy TS to File</button>
+        <div class="feedback">
+          <strong>💡 Tip:</strong> TypeScript errors are suggestions from your IDE. 
+          Trust them—they help prevent runtime issues.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tips-section">
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h3 class="tip-title">💙 Tips & Tricks</h3>
+        <p class="tip-desc">
+          Pro tips from the path below:
+        </p>
+        <ul style="font-size:0.9rem;">
+          <li><strong>HTML:</strong> Always use semantic tags (<code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>) for accessibility</li>
+          <li><strong>CSS:</strong> Use <code>z-index</code> for layering, <code>flexbox</code> for layouts</li>
+          <li><strong>JS:</strong> Use <code>const</code> by default; <code>let</code> for loops/reassignment</li>
+          <li><strong>React:</strong> Components should be pure functions (same input = same output)</li>
+          <li><strong>TypeScript:</strong> Start with explicit types; add them as you learn what matters</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

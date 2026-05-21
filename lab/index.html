@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Lab - Web Dev Learning Path</title>
+  <link rel="stylesheet" href="../xray.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .lab-section {
+      background: linear-gradient(145deg, #0f172a, #1e293b);
+      color: #f1f5f9;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    
+    .lab-header {
+      text-align: center;
+      padding: 3rem 0;
+    }
+    
+    .lab-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .lab-subtitle {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    .lab-card {
+      background: linear-gradient(145deg, rgba(245,158,11,0.1), rgba(239,68,68,0.1));
+      border: 2px solid rgba(245,158,11,0.3);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .lab-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 15px 40px rgba(245,158,11,0.2);
+    }
+    
+    .lab-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fde68a;
+      margin: 0 0 1rem 0;
+    }
+    
+    .lab-desc {
+      font-size: 1rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    
+    .lab-challenge {
+      background: rgba(239,68,68,0.1);
+      border-left: 4px solid #ef4444;
+      border-radius: 0 0.5rem 0.5rem 0;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .challenge-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fef3c7;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .hint-box {
+      background: rgba(245,158,11,0.2);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .code-block {
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+    
+    .copy-btn {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(245,158,11,0.3);
+    }
+    
+    .solution-reveal {
+      background: rgba(234,179,8,0.1);
+      border-left: 4px solid #fbbf24;
+      border-radius: 0 0.5rem 0.5rem 0;
+      padding: 1.25rem;
+      display: none;
+    }
+    
+    .solution-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fbbf24;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../" class="back-link">← Back to Home</a>
+    <h1 style="color: #f59e0b;">⚚ Interactive Lab</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section class="lab-section">
+    <div class="lab-header">
+      <h2 class="lab-title">Your Interactive Playground</h2>
+      <p class="lab-subtitle">
+        Hands-on challenges that teach by doing. Try breaking things, seeing errors,
+        and learning from mistakes in real time. Each exercise is designed to reinforce
+        concepts you've learned.
+      </p>
+    </div>
+
+    <section class="lab-grid">
+      <!-- Lab 1: CSS Grid Builder -->
+      <div class="lab-card">
+        <div class="lab-title">
+          <span>🔳</span> CSS Grid Builder
+        </div>
+        <p class="lab-desc">
+          Create a responsive grid layout with your favorite photo gallery. Learn about
+          grids, columns, rows, and responsive design patterns without frameworks.
+        </p>
+        
+        <div class="lab-challenge">
+          <div class="challenge-label">Challenge</div>
+          <p class="lab-desc">
+            Build a 3-column grid for a photo gallery that collapses to 1-column on narrow screens using CSS media queries.
+          </p>
+        </div>
+
+        <div class="hint-box">
+          <div class="challenge-label">💡 Hint</div>
+          <p class="lab-desc">
+            Use <code>display: grid;</code> with <code>grid-template-columns: repeat(3, 1fr);</code>. 
+            Add a media query for screens under 600px to show 1 column.
+          </p>
+        </div>
+
+        <div class="code-block">
+<span class="code-comment">/* Grid layout */</span>
+<span class="code-keyword">.gallery</span> {
+  <span class="code-property">display</span>: grid;
+  <span class="code-property">gap</span>: 1rem;
+  <span class="code-property">grid-template-columns</span>: <span class="code-string">repeat(3, 1fr)</span>;
+  
+  <span class="code-comment">/* Responsive */</span>
+  @<span class="code-keyword">media</span> (max-width: 600px) {
+    <span class="code-property">grid-template-columns</span>: <span class="code-string">1fr</span>;
+  }
+}
+        </div>
+        
+        <button class="copy-btn" onclick="revealSolutions(this)">Show Solutions</button>
+        <div class="solution-reveal">
+          <h4 class="solution-label">🎯 Solutions</h4>
+          <p class="lab-desc">
+            Try experimenting with the grid properties. What happens if you change gap size? 
+            Test responsive breakpoints. Break your grid—then fix it!
+          </p>
+        </div>
+      </div>
+
+      <!-- Lab 2: React Event Demo -->
+      <div class="lab-card">
+        <div class="lab-title">
+          <span>⚡</span> React Event Handlers
+        </div>
+        <p class="lab-desc">
+          Learn about React event handling and state updates. Create interactive UI
+          elements that respond to user actions, demonstrating state management.
+        </p>
+        
+        <div class="lab-challenge">
+          <div class="challenge-label">Challenge</div>
+          <p class="lab-desc">
+            Create a counter component that increments/decrements on button clicks, displays a message when count >= 5, and resets on click.
+          </p>
+        </div>
+
+        <div class="hint-box">
+          <div class="challenge-label">💡 Hint</div>
+          <p class="lab-desc">
+            Use <code>useState</code> for the counter. Use <code>onClick</code> handlers. Show conditional text using ternary or <code>{}</code> blocks.
+          </p>
+        </div>
+
+        <div class="code-block">
+<span class="code-keyword">import</span> React, { useState } <span class="code-keyword">from</span> <span class="code-string">'react'</span>;
+
+<span class="code-keyword">const</span> Counter = () => {
+  <span class="code-keyword">const</span> [count, setCount] = useState(0);
+  
+  <span class="code-keyword">const</span> increment = () => {
+    <span class="code-keyword">if</span> (count < 5) {
+      setCount(prev => prev + 1);
+    } <span class="code-keyword">else</span> {
+      <span class="code-keyword">setCount</span>(0);
+    }
+  };
+  
+  <span class="code-keyword">return</span> (
+    <span class="code-string">&lt;div&gt;</span>
+      <span class="code-string">&lt;p&gt;Count: </span>{count}<span class="code-string">&lt;/p&gt;</span>
+      <span class="code-string">&lt;button</span> onClick={increment}<span class="code-string">&gt;Increment&lt;/button&gt;</span>
+    <span class="code-string">&lt;/div&gt;</span>
+  );
+};
+        </div>
+        
+        <button class="copy-btn" onclick="revealSolutions(this)">Show Solutions</button>
+        <div class="solution-reveal">
+          <h4 class="solution-label">🎯 Solutions</h4>
+          <p class="lab-desc">
+            Notice how the state update is conditional. React prevents out-of-bounds updates. 
+            Try adding more features to the counter!
+          </p>
+        </div>
+      </div>
+
+      <!-- Lab 3: TypeScript Type Checker -->
+      <div class="lab-card">
+        <div class="lab-title">
+          <span>💙</span> TypeScript Type Safety
+        </div>
+        <p class="lab-desc">
+          Experience TypeScript's type safety firsthand. Break your code with type errors
+          and see how TypeScript helps you find bugs before runtime.
+        </p>
+        
+        <div class="lab-challenge">
+          <div class="challenge-label">Challenge</div>
+          <p class="lab-desc">
+            Create an interface for a <code>User</code> object. Add a function that accepts a <code>User</code> and logs its name. Intentionally type errors to see compiler messages.
+          </p>
+        </div>
+
+        <div class="hint-box">
+          <div class="challenge-label">💡 Hint</div>
+          <p class="lab-desc">
+            Define an interface with <code>interface</code> keyword. Add properties. The compiler will catch errors where types don't match.
+          </p>
+        </div>
+
+        <div class="code-block">
+<span class="code-keyword">interface</span> User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+<span class="code-keyword">const</span> createUser = (user: User): void => {
+  <span class="code-comment">// This works</span>
+  <span class="code-keyword">console</span>.log(<span class="code-string">`User: ${user.name}`</span>);
+  
+  <span class="code-comment">// This won't compile (error!):</span>
+  <span class="code-keyword">function</span> <span class="code-keyword">wrong</span>(user: string) {
+    <span class="code-keyword">console</span>.log(user);
+  }
+};
+        </div>
+        
+        <button class="copy-btn" onclick="revealSolutions(this)">Show Solutions</button>
+        <div class="solution-reveal">
+          <h4 class="solution-label">🎯 Solutions</h4>
+          <p class="lab-desc">
+            TypeScript shows you exactly where you're wrong. Fix the type mismatch—see how powerful type checking is!
+          </p>
+        </div>
+      </div>
+
+      <!-- Lab 4: API Explorer -->
+      <div class="lab-card">
+        <div class="lab-title">
+          <span>🌐</span> API Explorer
+        </div>
+        <p class="lab-desc">
+          Explore real APIs and learn about async operations. Fetch data, handle loading states,
+          and deal with errors when building production applications.
+        </p>
+        
+        <div class="lab-challenge">
+          <div class="challenge-label">Challenge</div>
+          <p class="lab-desc">
+            Use the JSONPlaceholder API to fetch users. Display a loading message while the request is processing, show the user list, and handle network errors gracefully.
+          </p>
+        </div>
+
+        <div class="hint-box">
+          <div class="challenge-label">💡 Hint</div>
+          <p class="lab-desc">
+            Use <code>fetch('https://jsonplaceholder.typicode.com/users')</code>. Show a loading spinner while <code>!user</code> exists. Handle errors with <code>try/catch</code>.
+          </p>
+        </div>
+
+        <div class="code-block">
+<span class="code-keyword">async function</span> <span class="code-keyword">fetchUsers</span>() {
+  <span class="code-keyword">try</span> {
+    <span class="code-keyword">const</span> response = <span class="code-keyword">await</span> fetch(<span class="code-string">'https://jsonplaceholder.typicode.com/users'</span>);
+    <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.json();
+    
+    <span class="code-keyword">if</span> (data) {
+      <span class="code-keyword">render</span>(data);
+    } <span class="code-keyword">else</span> {
+      <span class="code-keyword">showError</span>(<span class="code-string">'No users found'</span>);
+    }
+  } <span class="code-keyword">catch</span> (error) {
+    handleError(error);
+  }
+}
+        </div>
+        
+        <button class="copy-btn" onclick="revealSolutions(this)">Show Solutions</button>
+        <div class="solution-reveal">
+          <h4 class="solution-label">🎯 Solutions</h4>
+          <p class="lab-desc">
+            Real-world API work involves loading states, error handling, and edge cases. Practice handling all scenarios!
+          </p>
+        </div>
+      </div>
+    </section>
+  </section>
+</body>
+</html>

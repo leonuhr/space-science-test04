@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Projects - Web Dev Learning Path</title>
+  <link rel="stylesheet" href="../xray.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .projects-section {
+      background: linear-gradient(145deg, #0f172a, #1e293b);
+      color: #f1f5f9;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    
+    .projects-header {
+      text-align: center;
+      padding: 3rem 0;
+    }
+    
+    .projects-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #10b981, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .projects-subtitle {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    .project-card {
+      background: linear-gradient(145deg, rgba(139,92,246,0.1), rgba(236,72,153,0.1));
+      border: 2px solid rgba(139,92,246,0.2);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 15px 40px rgba(139,92,246,0.2);
+    }
+    
+    .project-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #e9d5ff;
+      margin: 0 0 1rem 0;
+    }
+    
+    .project-desc {
+      font-size: 1rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tech-badge {
+      padding: 0.4rem 0.8rem;
+      background: rgba(139,92,246,0.2);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #c4b5fd;
+      font-weight: 600;
+    }
+    
+    .project-details {
+      background: rgba(22,163,74,0.1);
+      border-left: 4px solid #10b981;
+      border-radius: 0 0.5rem 0.5rem 0;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .detail-section {
+      margin-bottom: 1.25rem;
+    }
+    
+    .detail-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .detail-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #10b981;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .detail-content {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    
+    .code-block {
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(22,163,74,0.3);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+    
+    .copy-btn {
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.75rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+    }
+    
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      color: white;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: transform 0.2s ease;
+    }
+    
+    .link-btn:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../" class="back-link">← Back to Home</a>
+    <h1 style="color: #10b981;">🛠️ Build Projects</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section class="projects-section">
+    <div class="projects-header">
+      <h2 class="projects-title">Build Real Apps</h2>
+      <p class="projects-subtitle">
+        Each project walks you through building a complete app. Start simple, 
+        then add features incrementally. Every project teaches new concepts 
+        while giving you instant, practical experience.
+      </p>
+    </div>
+
+    <section class="projects-grid">
+      <!-- Project 1: Simple Calculator -->
+      <div class="project-card">
+        <div class="project-title">
+          <span>🧮</span> Simple Calculator
+        </div>
+        <p class="project-desc">
+          Build a basic calculator with HTML/CSS/JavaScript. Create the interface, 
+          handle button clicks, and perform arithmetic operations. Perfect for 
+          understanding event handlers and basic math logic.
+        </p>
+        
+        <div class="tech-stack">
+          <span class="tech-badge">HTML</span>
+          <span class="tech-badge">CSS</span>
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">No frameworks</span>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-section">
+            <div class="detail-label">Goal</div>
+            <div class="detail-content">
+              Build a calculator that displays numbers and operations (+, -, ×, ÷) when buttons are clicked. The result should be displayed in a display area.
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Key Concepts</div>
+            <div class="detail-content">
+              - String concatenation for building the expression
+              - Event delegation for button clicks
+              - Conditional logic for validation
+              - DOM manipulation for updates
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Demo Code</div>
+            <div class="code-block">
+<span class="code-comment">// Calculator logic</span>
+<span class="code-keyword">function</span> calculate() {
+  <span class="code-keyword">const</span> display = document.querySelector(
+    <span class="code-string">'#display'</span>
+  ).value;
+  
+  <span class="code-keyword">if</span> (display) {
+    <span class="code-keyword">try</span> {
+      <span class="code-keyword">const</span> result = eval(display); <span class="code-comment">// Simple eval for demo</span>
+      document.querySelector('<span class="code-string">'#display'</span>).value = result;
+    } <span class="code-keyword">catch</span> (e) {
+      document.querySelector('<span class="code-string">'#display'</span>).value = <span class="code-string">'Error'</span>;
+    }
+  }
+}
+            </div>
+          </div>
+          
+          <a href="calculator/" class="link-btn">
+            Build Calculator →
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 2: Weather App -->
+      <div class="project-card">
+        <div class="project-title">
+          <span>🌤️</span> Weather App (API)
+        </div>
+        <p class="project-desc">
+          Fetch and display real weather data from a free API. Learn about async/await, 
+          fetch API, and handling external data. Great for understanding API integration 
+          and data visualization.
+        </p>
+        
+        <div class="tech-stack">
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">Fetch API</span>
+          <span class="tech-badge">Async/Await</span>
+          <span class="tech-badge">JSON</span>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-section">
+            <div class="detail-label">Goal</div>
+            <div class="detail-content">
+              Create a weather app that:
+              - Accepts city input
+              - Fetches weather from OpenWeatherMap API
+              - Displays temperature, conditions
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Key Concepts</div>
+            <div class="detail-content">
+              - Fetch API for HTTP requests
+              - Async/await for async operations
+              - JSON parsing
+              - Conditional rendering
+              - Error handling
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Demo Code</div>
+            <div class="code-block">
+<span class="code-keyword">async function</span> getWeather(city) {
+  <span class="code-keyword">try</span> {
+    <span class="code-comment">// Get API key (replace with yours)</span>
+    <span class="code-keyword">const</span> apiKey = <span class="code-string">'your-api-key'</span>;
+    <span class="code-keyword">const</span> url = <span class="code-string">`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`</span>;
+    
+    <span class="code-keyword">const</span> response = <span class="keyward">await</span> fetch(url);
+    <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.json();
+    
+    <span class="code-keyword">return</span> data;
+  } <span class="code-keyword">catch</span> (error) {
+    console.error(<span class="code-string">'Error fetching weather'</span>, error);
+  }
+}
+            </div>
+          </div>
+          
+          <a href="weather/" class="link-btn">
+            Build Weather App →
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 3: Notes with LocalStorage -->
+      <div class="project-card">
+        <div class="project-title">
+          <span>📝</span> Notes with LocalStorage
+        </div>
+        <p class="project-desc">
+          Build an app that saves notes to browser storage. Learn localStorage, 
+          CRUD operations, and making apps persistent. Great for understanding 
+          client-side data persistence.
+        </p>
+        
+        <div class="tech-stack">
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">LocalStorage</span>
+          <span class="tech-badge">JSON.stringify</span>
+          <span class="tech-badge">CRUD</span>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-section">
+            <div class="detail-label">Goal</div>
+            <div class="detail-content">
+              Create a notes app that:
+              - Adds new notes
+              - Stores them in localStorage
+              - Displays existing notes
+              - Deletes notes
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Key Concepts</div>
+            <div class="detail-content">
+              - localStorage API
+              - JSON.stringify()/parse()
+              - Array operations
+              - DOM event delegation
+              - State management basics
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Demo Code</div>
+            <div class="code-block">
+<span class="code-comment">// Save note</span>
+<span class="code-keyword">saveNote</span> = () => {
+  <span class="code-keyword">const</span> text = document.querySelector(
+    <span class="code-string">'#note-text'</span>
+  ).value;
+  
+  <span class="code-keyword">if</span> (text.trim()) {
+    <span class="code-keyword">const</span> notes = JSON.parse(
+      localStorage.getItem(<span class="code-string">'notes'</span>) || <span class="code-string">'[]'</span>
+    );
+    
+    notes.push({
+      text,
+      id: Date.now()
+    });
+    
+    localStorage.setItem(
+      <span class="code-string">'notes'</span>,
+      JSON.stringify(notes)
+    );
+    
+    <span class="code-keyword">render</span>()
+  }
+};
+
+<span class="code-comment">// Load notes on page</span>
+window.onload = () => {
+  <span class="code-keyword">const</span> notes = JSON.parse(
+    localStorage.getItem(<span class="code-string">'notes'</span>) || <span class="code-string">'[]'</span>
+  );
+  <span class="code-keyword">render</span>(notes);
+};
+            </div>
+          </div>
+          
+          <a href="notes/" class="link-btn">
+            Build Notes App →
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 4: Advanced Todo App -->
+      <div class="project-card">
+        <div class="project-title">
+          <span>✅</span> Advanced Todo App
+        </div>
+        <p class="project-desc">
+          Enhance your existing Todo app with TypeScript! Add type checking, 
+          better state management, and polish. This connects your 5-stage 
+          progression with React/TypeScript best practices.
+        </p>
+        
+        <div class="tech-stack">
+          <span class="tech-badge">React</span>
+          <span class="tech-badge">TypeScript</span>
+          <span class="tech-badge">State Management</span>
+          <span class="tech-badge">Advanced Patterns</span>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-section">
+            <div class="detail-label">Goal</div>
+            <div class="detail-content">
+              Build an enhanced Todo app that:
+              - Uses TypeScript for type safety
+              - Implements drag-to-reorder
+              - Supports categories
+              - Persists to server (or localStorage)
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Key Concepts</div>
+            <div class="detail-content">
+              - TypeScript interfaces
+              - React state best practices
+              - Conditional rendering
+              - Event handlers
+              - Form handling
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-label">Demo Code</div>
+            <div class="code-block">
+<span class="code-comment">// TypeScript TodoItem interface</span>
+<span class="code-keyword">interface</span> TodoItem {
+  id: number;
+  text: string;
+  completed: boolean;
+  category: <span class="code-string">'personal'</span> | <span class="code-string">'work'</span> | <span class="code-string">'both'</span>;
+}
+
+<span class="code-comment">// React component</span>
+<span class="code-keyword">const</span> TodoApp = ({ todos }) => {
+  <span class="code-keyword">const</span> [filter, setFilter] = useState(<span class="code-string">'all'</span>);
+  
+  <span class="code-keyword">const</span> filteredTodos = todos
+    .<span class="code-function">filter</span>(todo => {
+      <span class="code-keyword">return</span> filter === <span class="code-string">'all'</span> ||
+        todo.completed === (filter === <span class="code-string">'completed'</span>);
+    });
+  
+  <span class="code-keyword">return</span> (
+    &lt;<span class="code-string">div</span> className=<span class="code-string">'todo-container'</span>&gt;
+      &lt;h1&gt;Todo App&lt;/h1&gt;
+      <span class="code-keyword">&lt;button</span> onClick={() => setFilter(<span class="code-string">'all'</span>)}&gt;All&lt;/button&gt;
+      <span class="code-keyword">&lt;button</span> onClick={() => setFilter(<span class="code-string">'active'</span>)}&gt;Active&lt;/button&gt;
+      <span class="code-keyword">&lt;button</span> onClick={() => setFilter(<span class="code-string">'completed'</span>)}&gt;Completed&lt;/button&gt;
+      
+      <span class="code-keyword">&lt;ul</span> className=<span class="code-string">'todo-list'</span>&gt;
+        {filteredTodos.map(todo =&gt; (
+          <span class="code-keyword">&lt;li</span> key={todo.id}>
+            <span class="code-keyword">&lt;input</span> type=<span class="code-string">checkbox</span> checked={todo.completed} /&gt;
+            <span class="code-keyword">&lt;span&gt;{todo.text}&lt;/span&gt;</span>
+          <span class="code-keyword">&lt;/li&gt;</span>
+        ))}
+      <span class="code-keyword">&lt;/ul&gt;</span>
+    &lt;/div&gt;
+  );
+};
+            </div>
+          </div>
+          
+          <a href="todo-advanced/" class="link-btn">
+            Build Todo App →
+          </a>
+        </div>
+      </div>
+    </section>
+  </section>
+</body>
+</html>

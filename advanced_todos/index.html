@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced To-Do App</title>
+  <link rel="stylesheet" href="../xray.css">
+  <style>
+    .todo-app {
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    
+    .todo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .todo-input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .todo-filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .todo-filter-btn {
+      padding: 0.75rem 1.5rem;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .todo-filter-btn.active {
+      background: #1d4ed8;
+      color: white;
+    }
+    
+    .todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .todo-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: linear-gradient(145deg, #e0e7ff, #e0f2fe);
+      border: 2px solid #dbeafe;
+      border-radius: 0.75rem;
+      gap: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .todo-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(59,130,246,0.15);
+    }
+    
+    .todo-checkbox {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      accent-color: #10b981;
+    }
+    
+    .todo-text {
+      flex: 1;
+      transition: all 0.2s ease;
+    }
+    
+    .todo-text.completed {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+    
+    .todo-btns {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .todo-button {
+      padding: 0.5rem 0.75rem;
+      border: none;
+      border-radius: 0.3rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .todo-button:hover {
+      transform: translateY(-2px);
+    }
+    
+    .todo-button.edit {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      color: white;
+    }
+    
+    .todo-button.delete {
+      background: linear-gradient(135deg, #ef4444, #f87171);
+      color: white;
+    }
+    
+    .todo-editor {
+      display: none;
+    }
+    
+    .todo-editor textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.3rem;
+      font-family: inherit;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #64748b;
+    }
+    
+    .empty-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    
+    .stats-bar {
+      background: rgba(59,130,246,0.1);
+      border: 1px solid #bfdbfe;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .stats-number {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    
+    .step-guide {
+      background: rgba(245,158,11,0.1);
+      border-left: 4px solid #f59e0b;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../index.html" class="back-link">← Browse Projects</a>
+    <h1 style="color: #f59e0b;">✅ To-Do App</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section>
+    <main>
+      <div class="todo-app">
+        <div class="todo-header">
+          <div class="stats-bar">
+            <span class="stats-number" id="todo-count">5</span> tasks pending
+          </div>
+          
+          <div class="todo-edit-section">
+            <input type="text" id="todo-input" class="todo-input" placeholder="Add a new task..." maxlength="100">
+            <div class="todo-filters">
+              <button id="all-filters" class="todo-filter-btn active">All</button>
+              <button id="active-filters" class="todo-filter-btn">Active</button>
+              <button id="completed-filters" class="todo-filter-btn">Completed</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="todo-list" class="todo-list">
+          <!-- Todo items will be rendered here -->
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <span class="empty-icon">✓</span>
+          <p>No tasks yet!</p>
+          <p>Add your first task above.</p>
+        </div>
+      </div>
+
+      <div class="step-guide">
+        <h3>📝 Build Steps</h3>
+        <ol>
+          <li><strong>HTML:</strong> Create input, buttons, and list container</li>
+          <li><strong>JavaScript:</strong> CRUD operations with localStorage</li>
+          <li><strong>Vue/React:</strong> Convert to reactive framework</li>
+        </ol>
+
+        <div class="step-section">
+          <h4>Step 1: HTML Interface</h4>
+          <p>Setup input field and filter buttons</p>
+          <pre><code><span class="code-comment">&lt;!-- Input field --&gt;</span>
+<span class="code-comment">&lt;input</span> id=<span class="code-string">'todo-input'</span>&gt;&lt;/span&gt;
+
+<span class="code-comment">&lt;!-- Filter buttons --&gt;</span>
+<span class="code-keyword">button</span> id=<span class="code-string">'active-filters'</span> class=<span class="code-string">'filter-btn'</span>&gt;Active&lt;/span&gt;
+<span class="code-keyword">button</span> id=<span class="code-string">'completed-filters'</span> class=<span class="code-string">'filter-btn'</span>&gt;Completed&lt;/span&gt;
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 2: Todo Object Structure</h4>
+          <p>Each todo has these properties</p>
+          <pre><code><span>const</span> todo = {
+  id: Date.now(),
+  text: <span class="code-string">'Learn React'</span>,
+  completed: <span class="code-keyword">false</span>,
+  createdAt: <span class="code-string">'2024-01-01'</span>
+};
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 3: Add Todo</h4>
+          <p>Add new todo with validation</p>
+          <pre><code><span>function</span> addTodo(text) {
+  <span>const</span> todos = JSON.parse(
+    localStorage.getItem(<span class="code-string">'todos'</span>) || <span class="code-string">[]</span>
+  );
+  
+  <span>if</span> (text.trim()) {
+    todos.push({
+      id: Date.now(),
+      text: text.trim(),
+      completed: <span class="code-keyword">false</span>
+    });
+    
+    localStorage.setItem(<span class="code-string">'todos'</span>, JSON.stringify(todos));
+    renderTodos();
+  }
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 4: Toggle Complete</h4>
+          <p>Mark todo as completed</p>
+          <pre><code><span>function</span> toggleTodo(id) {
+  <span>const</span> todos = JSON.parse(
+    localStorage.getItem(<span class="code-string">'todos'</span>) || <span class="code-string">[]</span>
+  ).map(todo =&gt; {
+    <span>if</span> (todo.id === id) {
+      todo.completed = !todo.completed;
+    }
+    <span>return</span> todo;
+  });
+  
+  localStorage.setItem(<span class="code-string">'todos'</span>, JSON.stringify(todos));
+  renderTodos();
+  
+  <span>updateCount</span>();
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 5: Delete Todo</h4>
+          <p>Remove todo from array</p>
+          <pre><code><span>function</span> deleteTodo(id) {
+  <span>const</span> todos = JSON.parse(
+    localStorage.getItem(<span class="code-string">'todos'</span>) || <span class="code-string">[]</span>
+  ).filter(todo =&gt; todo.id !== id);
+  
+  localStorage.setItem(<span class="code-string">'todos'</span>, JSON.stringify(todos));
+  renderTodos();
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 6: Filter Todos</h4>
+          <p>Filter by status (all, active, completed)</p>
+          <pre><code><span>const</span> filterTodos = (filter) =&gt; {
+  <span>let</span> todos = JSON.parse(
+    localStorage.getItem(<span class="code-string">'todos'</span>) || <span class="code-string">[]</span>
+  );
+  
+  <span>if</span> (filter === <span class="code-string">'completed'</span>) {
+    return todos.filter(todo =&gt; todo.completed);
+  } <span>else if</span> (filter === <span class="code-string">'active'</span>) {
+    return todos.filter(todo =&gt; !todo.completed);
+  } <span>else</span> {
+    <span>return</span> todos;
+  }
+};
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 7: Vue.js Version</h4>
+          <p>Convert to Vue reactive code</p>
+          <pre><code><span>import</span> { ref, computed } <span>from</span> <span class="code-string">'vue'</span>;
+
+<span>const</span> todos = ref(() =&gt; [
+  { id: 1, text: <span class="code-string">'Learn Vue'</span>, completed: <span class="code-keyword">false</span> }
+]);
+
+<span>const</span> filteredTodos = computed(() =&gt; {
+  <span>const</span> filter = <span class="code-string">'all'</span>;
+  <span>return</span> filterTodos(todos.value, filter);
+});
+
+<span>const</span> addTodo = (text) =&gt; {
+  todos.value.push({
+    id: Date.now(),
+    text,
+    completed: <span class="code-keyword">false</span>
+  });
+};
+
+<span>const</span> toggleTodo = (id) =&gt; {
+  todos.value = todos.value.map(todo =&gt; {
+    <span>if</span> (todo.id === id) {
+      todo.completed = !todo.completed;
+    }
+    <span>return</span> todo;
+  });
+};
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Enhancements to Add</h4>
+          <ul>
+            <li>Todo editing functionality</li>
+            <li>Search/filter by text</li>
+            <li>Priority levels</li>
+            <li>Categories (work, personal, etc.)</li>
+            <li>Drag-and-drop reordering</li>
+            <li>Export/import data</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </section>
+  
+  <script>
+    <span>const</span> todoApp = (() =&gt; {
+      <span>const</span> todos = JSON.parse(
+        localStorage.getItem(<span class="code-string">'todos'</span>) || <span class="code-string">[]</span>
+      ).map(todo =&gt; ({...todo, createdAt: new Date().toISOString()}));
+      
+      <span>const</span> render = (filter) =&gt; {
+        <span>const</span> list = document.getElementById(<span class="code-string">'todo-list'</span>);
+        <span>const</span> filtered = todos.filter(todo =&gt; {
+          <span>switch</span> (filter) {
+            <span>case</span> <span class="code-string">'completed'</span>: <span>return</span> todo.completed;
+            <span>case</span> active: <span>return</span> !todo.completed;
+            <span>default</span>: <span>return</span> <span class="code-keyword">true</span>;
+          }
+        });
+        
+        <span>const</span> empty = document.getElementById(<span class="code-string">'empty-state'</span>);
+        <span>const</span> list = document.getElementById(<span class="code-string">'todo-list'</span>);
+        <span>const</span> count = document.getElementById(<span class="code-string">'todo-count'</span>);
+        
+        <span>if</span> (filtered.length === 0) {
+          empty.style.display = <span class="code-string">'block'</span>;
+          list.innerHTML = <span class="code-string">''</span>;
+        } <span>else</span> {
+          empty.style.display = <span class="code-string">'none'</span>;
+          list.innerHTML = filtered.map(todo =&gt; (
+            <span class="code-string">&lt;div&gt;
+              &lt;input type="checkbox" class="todo-checkbox" 
+                    checked="${todo.completed}" 
+                    onclick="todoApp.toggleTodo(todo.id)"&gt;
+              &lt;span class="todo-text ${todo.completed ? 'completed' : ''}" 
+                    ondblclick="todoApp.showTodoEditor(todo)"&gt;
+                ${todo.text}
+              &lt;/span&gt;
+              &lt;div class="todo-btns"&gt;
+                &lt;button class="todo-button edit"&gt;Edit&lt;/button&gt;
+                &lt;button class="todo-button delete"&gt;Delete&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )).join(<span class="code-string">' '</span>);
+        }
+        
+        count.textContent = filtered.filter(t =&gt; !t.completed).length;
+      };
+      
+      <span>const</span> toggleTodo = (id) =&gt; {
+        todos.map(todo =&gt; {
+          <span>if</span> (todo.id === id) {
+            todo.completed = !todo.completed;
+          }
+          <span>return</span> todo;
+        });
+        
+        localStorage.setItem(<span class="code-string">'todos'</span>, JSON.stringify(todos));
+        render(<span class="code-string">'all'</span>);
+      };
+      
+      <span>const</span> deleteTodo = (id) =&gt; {
+        todos = todos.filter(todo =&gt; todo.id !== id);
+        localStorage.setItem(<span class="code-string">'todos'</span>, JSON.stringify(todos));
+        render(<span class="code-string">'all'</span>);
+      };
+      
+      <span>const</span> saveTodo = (text) =&gt; {
+        <span>const</span> index = todos.findIndex(todo =&gt; todo.text === text);
+        <span>if</span> (text) {
+          todos.splice(index, 1, {text});
+        }
+        
+        localStorage.setItem(<span class="code-string">'todos'</span>, JSON.stringify(todos));
+        render(<span class="code-string">'all'</span>);
+      };
+      
+      <span>const</span> showTodoEditor = (todo) =&gt; {
+        <span>const</span> todoElement = document.getElementById(`todo_${todo.id}`);
+        <span>const</span> inputElement = todoElement.querySelector('input');
+        
+        inputElement.value = todo.text;
+        inputElement.style.display = <span class="code-string">'block'</span>;
+      }
+      
+      <span>document</span>.getElementById(<span class="code-string">'save-btn'</span>).onclick = saveTodo;
+      <span>document</span>.getElementById(<span class="code-string">'add-todo-btn'</span>).onclick = addTodo;
+      <span>document</span>.addEventListener(<span class="code-string">'keydown'</span>, e =&gt; {
+        <span>if</span> (e.key === <span class="code-string">'Enter'</span>) {
+          addTodo(<span id="todo-input"></span>);
+        }
+      });
+      
+      render(<span class="code-string">'all'</span>);
+    })();
+  </script>
+</body>
+</html>

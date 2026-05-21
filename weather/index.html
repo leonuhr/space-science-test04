@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="../xray.css">
+  <style>
+    .weather-app {
+      max-width: 500px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    
+    .weather-search {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .weather-input {
+      flex: 1;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background: white;
+    }
+    
+    .weather-btn {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .weather-display {
+      display: none;
+    }
+    
+    .weather-icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .weather-temp {
+      font-size: 3rem;
+      color: #10b981;
+      font-weight: 700;
+    }
+    
+    .weather-desc {
+      text-transform: capitalize;
+      margin-bottom: 1.5rem;
+    }
+    
+    .weather-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    
+    .detail-section {
+      padding: 1rem;
+      background: rgba(22,163,74,0.1);
+      border-radius: 0.5rem;
+    }
+    
+    .step-guide {
+      background: rgba(245,158,11,0.1);
+      border-left: 4px solid #f59e0b;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <header class="xray-header">
+    <a href="../index.html" class="back-link">← Browse Projects</a>
+    <h1 style="color: #f59e0b;">🌤️ Weather App</h1>
+    <div style="width: 100px;"></div>
+  </header>
+
+  <section>
+    <main>
+      <div class="weather-app">
+        <div id="search" class="weather-search">
+          <input type="text" id="city" class="weather-input" 
+                 placeholder="Enter city name..." 
+                 value="London">
+          <button id="searchBtn" class="weather-btn">Get Weather</button>
+        </div>
+
+        <div id="weather" class="weather-app weather-display">
+          <div id="icon" class="weather-icon">⛅</div>
+          <div id="city" class="weather-city">London</div>
+          <div id="temp" class="weather-temp">15°C</div>
+          <div id="description" class="weather-desc">Mostly Cloudy</div>
+          
+          <div id="details" class="weather-details">
+            <div class="detail-section">
+              <h4>💨</h4>
+              <div id="wind">5.2 km/h</div>
+            </div>
+            <div class="detail-section">
+              <h4>💧</h4>
+              <div id="humidity">75%</div>
+            </div>
+            <div class="detail-section">
+              <h4>🌡️</h4>
+              <div id="feels-like">Feels like 13°C</div>
+            </div>
+            <div class="detail-section">
+              <h4>🧭</h4>
+              <div id="pressure">1013 hPa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-guide">
+        <h3>📝 Build Steps</h3>
+        <ol>
+          <li><strong>HTML:</strong> Create input, search button, and results container</li>
+          <li><strong>JavaScript:</strong> Fetch from OpenWeatherMap API</li>
+          <li><strong>React:</strong> Convert to component</li>
+        </ol>
+
+        <div class="step-section">
+          <h4>Step 1: API Setup</h4>
+          <p>Sign up for free API key at OpenWeatherMap</p>
+          <pre><code>API_URL = "https://api.openweathermap.org/data/2.5/weather?units=metric"
+API_KEY = "your-api-key-here"
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 2: Fetch API</h4>
+          <p>Make async fetch request and handle response</p>
+          <pre><code><span class="code-keyword">async function</span> getWeather(city) {
+  <span class="code-keyword">try</span> {
+    <span class="code-keyword">const</span> response = <span class="code-keyword">await</span> fetch(
+      `${API_URL}&q=${city}&appid=${API_KEY}`
+    );
+    <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.json();
+    <span class="code-keyword">return</span> data;
+  } <span class="code-keyword">catch</span> (error) {
+    console.error(<span class="code-string">'Error:'</span>, error);
+  }
+}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 3: React Component</h4>
+          <p>Convert to React hooks app</p>
+          <pre><code><span class="code-keyword">const</span> [city, setCity] = useState(<span class="code-string">''</span>);
+<span class="code-keyword">const</span> [weather, setWeather] = useState(null);
+<span class="code-keyword">const</span> [loading, setLoading] = useState(false);
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Step 4: Display Data</h4>
+          <p>Render weather information conditionally</p>
+          <pre><code>{loading ? <span class="code-string">"Loading..."</span> : (
+  <span class="code-string">&lt;div&gt;{weather.main.temp}°C</span&gt;
+)}
+</code></pre>
+        </div>
+
+        <div class="step-section">
+          <h4>Suggested Improvements</h4>
+          <ul>
+            <li>Add error handling for invalid cities</li>
+            <li>Show loading spinner while fetching</li>
+            <li>Support geolocation instead of city name</li>
+            <li>Add 5-day forecast</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    <span>async function</span> getWeather(city) {
+      <span>try</span> {
+        <span>const</span> response = <span>await</span> fetch(
+          `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}`
+        );
+        <span>const</span> data = <span>await</span> response.json();
+        
+        <span>if</span> (response.ok) {
+          <span>const</span> weather = {
+            temp: data.main.temp.toFixed(1),
+            feels: data.main.feels_like.toFixed(1),
+            humidity: data.main.humidity,
+            wind: data.wind.speed.toFixed(2),
+            description: data.weather[0].description,
+            icon: getDataIcon(data.weather[0].main)
+          };
+          
+          <span>document</span>.getElementById(<span class="code-string">'weather'</span>).style.display = <span class="code-string">'block'</span>;
+          <span>document</span>.getElementById(<span class="code-string">'search'</span>).style.display = <span class="code-string">'none'</span>;
+          <span>document</span>.getElementById(<span class="code-string">'city'</span>).textContent = city;
+          <span>document</span>.getElementById(<span class="code-string">'temp'</span>).textContent = weather.temp + <span class="code-string">'°C'</span>;
+          <span>document</span>.getElementById(<span class="code-string">'feels-like'</span>).textContent = <span class="code-string">`Feels like ${weather.feels}°C`</span>;
+          <span>document</span>.getElementById(<span class="code-string">'humidity'</span>).textContent = weather.humidity + <span class="code-string">'%'</span>;
+          <span>document</span>.getElementById(<span class="code-string">'wind'</span>).textContent = weather.wind + <span class="code-string">' km/h'</span>;
+          <span>document</span>.getElementById(<span class="code-string">'description'</span>).textContent = weather.description;
+          <span>document</span>.getElementById(<span class="code-string">'icon'</span>).textContent = weather.icon;
+        }
+      } <span>catch</span> (error) {
+        console.error(<span class="code-string">'Error fetching weather:'</span>, error);
+      }
+    }
+
+    <span>function</span> getDataIcon(condition) {
+      <span>switch</span> (condition) {
+        <span>case</span> Clear: <span>return</span> ☀️;
+        <span>case</span> Clouds: <span>return</span> ⛅;
+        <span>case</span> Rain: <span>return</span> 🌧️;
+        <span>default</span>: <span>return</span> ⛅;
+      }
+    }
+
+    <span>document</span>.getElementById(<span class="code-string">'searchBtn'</span>).onclick = () => {
+      <span>getWeather</span>(<span>document</span>.getElementById(<span class="code-string">'city'</span>).value);
+    }
+  </script>
+</body>
+</html>
