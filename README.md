@@ -1,54 +1,75 @@
-# How the Web Actually Works
+# 🌐 How the Web Actually Works
 
-> A clear, visual, interactive demonstration of how the exact same application evolves across frontend technologies.
+![Demo](https://i.imgur.com/placeholder.png)
 
-This repository is not a collection of disconnected demos. It is **one single application (a Todo List)**, progressively enhanced through 5 stages of web technology. It is designed as an interactive educational hub to help beginners and students instantly visualize what each layer of the web actually *does*.
+A visual, interactive journey through the evolution of frontend web development.
 
-## 🎯 The Concept
+## 🎯 What You're Seeing Here
 
-Frontend development can be overwhelming. Beginners often ask: *"Why do we need CSS if we have HTML?"* or *"Why do we use React instead of just JavaScript?"*
+**Core Evolution (5 Stages):**
+- **Stage 1 - HTML**: Raw structure and semantics
+- **Stage 2 - CSS**: Visual presentation and styling
+- **Stage 3 - JavaScript**: Dynamic behavior and interactivity
+- **Stage 4 - React**: Components and state management
+- **Stage 5 - TypeScript**: Type safety and best practices
 
-This project answers those questions visually. By navigating through the 5 stages, you can see the exact same Todo List built in 5 different ways, with an interactive X-Ray view showing the core concepts and the source code side-by-side with the live preview.
+**Learning Path (New Sections):**
+- **🔬 Lab**: Interactive challenges
+- **🛠️ Projects**: Build with guidance
+- **📖 Learn**: Theoretical fundamentals
+- **🌈 Features**: Extra fun stuff
 
-## 🚀 The 5 Stages of Web Evolution
+## 🎓 Why This Matters
 
-1. **HTML (`/html`)**: Structure only. The raw skeleton of the web relying entirely on the browser's default appearance.
-2. **CSS (`/css`)**: Visual presentation. We add a modern, glassmorphism stylesheet. The app looks beautiful, but the buttons still do nothing.
-3. **JavaScript (`/js`)**: Behavior and logic. We write imperative scripts to manipulate the DOM, finally making the Todo list interactive.
-4. **React (`/react`)**: Components and global state. We rebuild the app using declarative UI, showing how React simplifies complex interfaces.
-5. **TypeScript (`/typescript`)**: Static typing. We add compile-time safety, demonstrating how interfaces prevent bugs before they happen.
+Every line of code in modern web development is the result of lessons learned from these stages. See how the exact same idea (Todo List) evolves from basic HTML to typed React components.
 
-## 📂 Project Structure
+## 🚀 Quick Start
 
-```text
-.
-├── index.html           # The Interactive Learning Hub (Landing Page)
-├── xray.css             # The split-screen UI framework used across all stages
-├── html/                # Stage 1: Pure HTML structure
-├── css/                 # Stage 2: HTML + CSS Styling
-├── js/                  # Stage 3: HTML + CSS + Vanilla JS Logic
-├── react/               # Stage 4: React Components (Babel Standalone for pure demo)
-│   ├── index.html       # React setup
-│   └── src/             # React source code (App.jsx, TodoItem.jsx)
-└── typescript/          # Stage 5: React + TypeScript
-    ├── index.html       # TypeScript setup
-    └── src/             # TypeScript source code (App.tsx, TodoItem.tsx, types.ts)
+```bash
+# View the full evolution:
+https://leoneluhr.dev/test04/html/
+https://leoneluhr.dev/test04/css/
+https://leoneluhr.dev/test04/js/
+https://leoneluhr.dev/test04/react/
+https://leoneluhr.dev/test04/typescript/
+
+# Try the fun extras:
+https://leoneluhr.dev/test04/weather/
+https://leoneluhr.dev/test04/calculator/
+https://leoneluhr.dev/test04/notes/
+https://leoneluhr.dev/test04/lab/
 ```
 
-## 🛠️ How to Use This Repo
+## 💻 Tech Stack (Static)
 
-This repository is built to be **100% statically deployable** without any complex build steps. There is no need to run `npm install` or configure a bundler. 
+- **Framework**: Zero (pure HTML/CSS/JS)
+- **Build Tool**: Zero (no webpack/bundle)
+- **Hosting**: Cloudflare Pages
+- **Domain**: `leoneluhr.dev/test04`
 
-The React and TypeScript stages utilize `babel-standalone` to compile the modern syntax directly in the browser. This ensures that the source code remains readable, clean, and immediately executable as an educational tool.
+## 📝 License
 
-To run the project:
-1. Clone the repository.
-2. Open `index.html` in your browser.
-3. Use the navigation hub to explore each stage.
+Educational project - feel free to learn from the examples!
+
+## 🤝 Contributing
+
+Want to suggest improvements? Open an issue or pull request!
+
+---
+
+**Created by** Leo | [leoneluhr.dev](https://leoneluhr.dev)
+
+---
 
 ## ✨ Features
 
-- **Split-Screen X-Ray UI**: Code and concepts on the left, live preview on the right.
-- **Premium Design**: Modern glassmorphism UI with smooth animations.
-- **Interactive Explanations**: Toggle CSS on/off, disable JS, and see live TypeScript errors.
-- **Static Hosting Ready**: Instantly deployable to Cloudflare Pages, GitHub Pages, or Vercel.
+- 🎨 Beautiful gradient design
+- 📱 Fully responsive
+- ⚡ No build steps needed
+- 📚 Great for learning
+- 🛠️ Interactive demos
+- 🧪 Breakable examples
+
+---
+
+**Built with ❤️ for learning**
