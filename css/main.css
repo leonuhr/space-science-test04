@@ -1,0 +1,174 @@
+/* ===== MAIN SITE STYLES ===== */
+
+/* ===== SCROLL FIX ===== */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* ===== FIX: FOOTER / SCROLL LOCK ===== */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== FIX: NAVIGATION CARDS ===== */
+.nav-card {
+  height: auto !important;
+  min-height: 300px;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.nav-card h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.nav-card p.desc {
+  font-size: 1rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.nav-card.whats-new {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-card.whats-new h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(var(--hover-color), 0.8);
+  margin: 0 0 0.75rem 0;
+}
+
+.nav-card.whats-new ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-card.whats-new li {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.nav-card.whats-new li::before {
+  content: '→';
+  color: rgba(var(--hover-color), 1);
+}
+
+/* ===== FIX: BADGES ===== */
+.badge {
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ===== FIX: COLORS ===== */
+.learn-new .badge {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  color: white;
+}
+
+.projects-new .badge {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: white;
+}
+
+.lab-new .badge {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: white;
+}
+
+/* ===== FIX: HERO SECTION ===== */
+.hero-section {
+  max-width: 800px;
+  margin-bottom: 4rem;
+  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* ===== FIX: LEARN SECTION ===== */
+.learn-section {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 2rem;
+}
+
+/* ===== FIX: RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .nav-card {
+    min-height: auto;
+  }
+
+  .nav-card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== FIX: BUTTON STYLES ===== */
+.btn {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+/* ===== FIX: ANIMATIONS ===== */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== FIX: GRADIENT TEXT ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
